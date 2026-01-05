@@ -1,0 +1,8 @@
+{
+  "name": "AthletePro Health Dashboard",
+  "description": "An integrated elite performance health and recovery dashboard with AI-powered video analysis, nutrition tracking, and health grounding.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ]
+}
