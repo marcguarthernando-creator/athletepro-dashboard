@@ -96,7 +96,7 @@ const App: React.FC = () => {
             <ProtectedRoute>
               <Layout>
                 <Routes>
-                  <Route path="/" element={<Navigate to="/medical/players" replace />} />
+                  <Route path="/" element={<Navigate to="/medical/dashboard" replace />} />
                   <Route path="/players" element={<MedicalDashboard />} />
                   <Route path="/players/:id" element={<PlayerMedicalProfile />} />
                   <Route path="/dashboard" element={<TeamDashboard />} />
@@ -107,7 +107,7 @@ const App: React.FC = () => {
                   <Route path="/report" element={<MedicalForm />} />
                   <Route path="/update-data" element={<UpdatePlayerData />} />
                   <Route path="/profile-settings" element={<UserProfileSettings />} />
-                  <Route path="*" element={<Navigate to="/medical/players" replace />} />
+                  <Route path="*" element={<Navigate to="/medical/dashboard" replace />} />
                 </Routes>
               </Layout>
             </ProtectedRoute>
@@ -121,7 +121,7 @@ const App: React.FC = () => {
             <ProtectedRoute>
               <Layout>
                 <Routes>
-                  <Route path="/" element={<Navigate to="/fisio/players" replace />} />
+                  <Route path="/" element={<Navigate to="/fisio/dashboard" replace />} />
                   <Route path="/players" element={<MedicalDashboard />} />
                   <Route path="/players/:id" element={<PlayerMedicalProfile />} />
                   <Route path="/dashboard" element={<TeamDashboard />} />
@@ -131,7 +131,7 @@ const App: React.FC = () => {
                   <Route path="/report/:id" element={<PlayerFisioReport />} />
                   <Route path="/report" element={<FisioForm />} />
                   <Route path="/profile-settings" element={<UserProfileSettings />} />
-                  <Route path="*" element={<Navigate to="/fisio/players" replace />} />
+                  <Route path="*" element={<Navigate to="/fisio/dashboard" replace />} />
                 </Routes>
               </Layout>
             </ProtectedRoute>
@@ -145,7 +145,7 @@ const App: React.FC = () => {
             <ProtectedRoute>
               <Layout>
                 <Routes>
-                  <Route path="/" element={<Navigate to="/prepa/players" replace />} />
+                  <Route path="/" element={<Navigate to="/prepa/dashboard" replace />} />
                   <Route path="/players" element={<MedicalDashboard />} />
                   <Route path="/players/:id" element={<PlayerMedicalProfile />} />
                   <Route path="/dashboard" element={<TeamDashboard />} />
@@ -154,7 +154,7 @@ const App: React.FC = () => {
                   <Route path="/stats" element={<MedicalStats />} />
                   <Route path="/gym" element={<GymForm />} />
                   <Route path="/profile-settings" element={<UserProfileSettings />} />
-                  <Route path="*" element={<Navigate to="/prepa/players" replace />} />
+                  <Route path="*" element={<Navigate to="/prepa/dashboard" replace />} />
                 </Routes>
               </Layout>
             </ProtectedRoute>

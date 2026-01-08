@@ -18,7 +18,7 @@ const MedicalDashboard: React.FC = () => {
             <header className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
                     <h1 className="text-4xl font-black text-white mb-2 tracking-tight uppercase">JUGADORES</h1>
-                    <p className="text-text-secondary text-base font-medium">Estado de salud de la plantilla • <span className="text-primary/80">FUNDACION CB CANARIAS U22</span></p>
+                    <p className="text-text-secondary text-base font-medium">Estado de salud de la plantilla • <span className="text-primary/80">CB BALONCESTO</span></p>
                 </div>
                 <div className="flex gap-4">
                     <div className="bg-surface-dark border border-surface-border p-4 rounded-xl flex flex-col items-center min-w-[110px] shadow-lg">

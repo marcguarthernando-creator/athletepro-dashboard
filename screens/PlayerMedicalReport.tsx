@@ -97,7 +97,7 @@ const PlayerMedicalReport: React.FC = () => {
 
                     {/* Main Banner (Solid blue matching reference) */}
                     <div className="bg-[#1e3a8a] text-white py-2 px-6 flex justify-between items-center mb-6">
-                        <h1 className="text-[16px] font-black uppercase tracking-[0.05em]">INFORME MÉDICO DEPORTIVO - CB CANARIAS</h1>
+                        <h1 className="text-[16px] font-black uppercase tracking-[0.05em]">INFORME MÉDICO DEPORTIVO - CB BALONCESTO</h1>
                         <div className="w-5 h-5 flex items-center justify-center">
                             <img src="/escudo-cbc.png" alt="Logo" className="w-4 h-4 object-contain brightness-0 invert" />
                         </div>
@@ -260,7 +260,7 @@ const PlayerMedicalReport: React.FC = () => {
 
                     {/* Dark Blue Footer Banner (Identical to reference) */}
                     <div className="bg-[#1e3a8a] text-white py-1 px-4 flex justify-between items-center text-[8px] font-black uppercase tracking-widest mt-auto mb-2">
-                        <div className="italic">Elite Performance Coaching Staff | CB Canarias</div>
+                        <div className="italic">Elite Performance Coaching Staff | CB BALONCESTO</div>
                         <div className="italic">Validación Digital de Datos: Dr. Sergio Mora</div>
                     </div>
 

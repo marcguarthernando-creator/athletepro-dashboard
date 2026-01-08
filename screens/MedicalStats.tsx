@@ -103,8 +103,8 @@ const MedicalStats: React.FC = () => {
                                 <tbody className="divide-y divide-white/5">
                                     {[
                                         { name: 'Alejandro Guerra', games: 8, cost: 24, status: 'Rehabilitación' },
-                                        { name: 'Manuel Crujeiras', games: 5, cost: 15, status: 'Rehabilitación' },
-                                        { name: 'Rafa Rodríguez', games: 2, cost: 6, status: 'Disponible' },
+                                        { name: 'Jorge González', games: 5, cost: 15, status: 'Rehabilitación' },
+                                        { name: 'Pablo Torres', games: 2, cost: 6, status: 'Disponible' },
                                         { name: 'David Acosta', games: 1, cost: 3, status: 'En Duda' }
                                     ].map(p => (
                                         <tr key={p.name} className="hover:bg-white/[0.02]">

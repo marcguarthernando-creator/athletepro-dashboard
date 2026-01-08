@@ -4,6 +4,7 @@ import { mockPlayers } from '../services/mockPlayers';
 import { playerMedicalData } from '../services/playerMedicalData';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
+import { BODY_AREAS, INJURY_SIDES, INJURY_TYPES, STRUCTURES_BY_AREA } from '../services/injuryData';
 
 const FisioForm: React.FC = () => {
     const navigate = useNavigate();
@@ -13,11 +14,50 @@ const FisioForm: React.FC = () => {
     const [selectedPlayerId, setSelectedPlayerId] = useState('');
     const [anamnesis, setAnamnesis] = useState('');
     const [physicalExam, setPhysicalExam] = useState('');
-    const [bodyPart, setBodyPart] = useState('');
-    const [injuryType, setInjuryType] = useState('MUSCULAR');
-    const [injuryGrade, setInjuryGrade] = useState('');
-    const [cause, setCause] = useState('SOBRECARGA');
-    const [tests, setTests] = useState('');
+    // Refactored Injury State
+    interface InjuryRecord {
+        id: string;
+        bodyArea: string;
+        side: string;
+        type: string;
+        structure: string;
+        grade: string;
+        cause: string;
+    }
+
+    // Default empty injury
+    const createEmptyInjury = (): InjuryRecord => ({
+        id: crypto.randomUUID(),
+        bodyArea: '',
+        side: 'DERECHA',
+        type: 'MUSCULAR',
+        structure: '',
+        grade: '',
+        cause: 'SOBRECARGA'
+    });
+
+    const [injuries, setInjuries] = useState<InjuryRecord[]>([createEmptyInjury()]);
+
+    // Actions for injury list
+    const addInjury = () => setInjuries(prev => [...prev, createEmptyInjury()]);
+    const removeInjury = (id: string) => {
+        if (injuries.length > 1) {
+            setInjuries(prev => prev.filter(i => i.id !== id));
+        }
+    };
+    const updateInjury = (id: string, field: keyof InjuryRecord, value: string) => {
+        setInjuries(prev => prev.map(injury => {
+            if (injury.id === id) {
+                const updated = { ...injury, [field]: value };
+                // Reset structure if body area changes
+                if (field === 'bodyArea') updated.structure = '';
+                return updated;
+            }
+            return injury;
+        }));
+    };
+    const [selectedTests, setSelectedTests] = useState<string[]>([]);
+    const [testsDetails, setTestsDetails] = useState('');
     const [diagnosis, setDiagnosis] = useState('');
     const [treatment, setTreatment] = useState('');
     const [status, setStatus] = useState('OFF');
@@ -31,9 +71,18 @@ const FisioForm: React.FC = () => {
         return playerMedicalData[player.name.toUpperCase()] || null;
     }, [player]);
 
-    const injuryTypes = [
-        'ARTICULAR', 'MUSCULAR', 'TENDINOSA', 'LIGAMENTOSA', 'OSEA', 'MENISCO', 'CARTILAGO', 'ENFERMEDAD COMUN', 'CONMOCION CEREBRAL'
+
+
+    const commonTests = [
+        'Ecografía', 'Resonancia Magnética (RMN)', 'Radiografía (RX)', 'TAC', 'Gammagrafía',
+        'Electromiografía', 'Analítica Sanguínea', 'Estudio Pisada', 'Biomecánica', 'Prueba Esfuerzo'
     ];
+
+    const toggleTest = (test: string) => {
+        setSelectedTests(prev =>
+            prev.includes(test) ? prev.filter(t => t !== test) : [...prev, test]
+        );
+    };
 
     const playerStatuses = [
         { id: 'OFF', label: 'OFF / BAJA TOTAL' },
@@ -50,7 +99,9 @@ const FisioForm: React.FC = () => {
 
     const generateAIComment = () => {
         if (!player) return "Selecciona un jugador para generar el comentario.";
-        return `Teniendo en cuenta que ${player.name} tiene ${medicalData?.biometrics?.age || 'N/A'} años y un peso de ${medicalData?.biometrics?.weight || 'N/A'} kg, esta lesión de tipo ${injuryType} (${injuryGrade}) provocada por ${cause.toLowerCase()} sugiere un periodo de recuperación de aproximadamente ${injuryType === 'MUSCULAR' ? '15-21' : '30+'} días. Se recomienda monitorizar la carga de trabajo post-retorno para evitar recaídas.`;
+        if (!player) return "Selecciona un jugador para generar el comentario.";
+        const mainInjury = injuries[0];
+        return `Teniendo en cuenta que ${player.name} tiene ${medicalData?.biometrics?.age || 'N/A'} años y un peso de ${medicalData?.biometrics?.weight || 'N/A'} kg, esta lesión (${mainInjury.type} en ${mainInjury.bodyArea}) provocada por ${mainInjury.cause.toLowerCase()} sugiere un periodo de recuperación variable. Se recomienda monitorizar la carga de trabajo post-retorno para evitar recaídas.`;
     };
 
     const handleSave = () => {
@@ -150,44 +201,86 @@ const FisioForm: React.FC = () => {
 
                 {/* Clinical Details */}
                 <div className="bg-[#161b22] border border-white/5 rounded-3xl p-8 shadow-2xl space-y-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="flex items-center gap-2 mb-2 border-b border-white/5 pb-4">
+                        <span className="material-symbols-outlined text-primary">clinical_notes</span>
+                        <h3 className="text-sm font-black text-white uppercase tracking-widest">Evaluación Clínica</h3>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        {/* Left Column: Narrative */}
                         <div className="space-y-6">
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Anamnesis</label>
+                            <div className="bg-background-dark/30 p-4 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
+                                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-3 block flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                                    Anamnesis
+                                </label>
                                 <textarea
                                     value={anamnesis}
                                     onChange={(e) => setAnamnesis(e.target.value)}
-                                    placeholder="Descripción de lo que relata el paciente..."
-                                    className="w-full bg-background-dark border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary/50 transition-colors h-24 resize-none"
+                                    placeholder="Descripción detallada de lo que relata el paciente..."
+                                    className="w-full bg-[#0d1117] border border-white/5 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary/50 transition-colors h-32 resize-none leading-relaxed placeholder:text-white/20"
                                 />
                             </div>
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Exploración Física</label>
+                            <div className="bg-background-dark/30 p-4 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
+                                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-3 block flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-400"></div>
+                                    Exploración Física
+                                </label>
                                 <textarea
                                     value={physicalExam}
                                     onChange={(e) => setPhysicalExam(e.target.value)}
-                                    placeholder="Hallazgos físicos, dolor, ROM, tests ortopédicos..."
-                                    className="w-full bg-background-dark border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary/50 transition-colors h-24 resize-none"
+                                    placeholder="Hallazgos físicos, maniobras, dolor a la palpación..."
+                                    className="w-full bg-[#0d1117] border border-white/5 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary/50 transition-colors h-32 resize-none leading-relaxed placeholder:text-white/20"
                                 />
                             </div>
                         </div>
+
+                        {/* Right Column: Tests & Diagnosis */}
                         <div className="space-y-6">
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Pruebas Complementarias</label>
-                                <textarea
-                                    value={tests}
-                                    onChange={(e) => setTests(e.target.value)}
-                                    placeholder="Ecografía, Resonancia, RX, etc..."
-                                    className="w-full bg-background-dark border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary/50 transition-colors h-24 resize-none"
-                                />
+                            <div className="bg-background-dark/30 p-5 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
+                                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-4 block flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
+                                    Pruebas Complementarias
+                                </label>
+                                <div className="space-y-4">
+                                    <div className="flex flex-wrap gap-2">
+                                        {commonTests.map(test => (
+                                            <button
+                                                key={test}
+                                                onClick={() => toggleTest(test)}
+                                                className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border shadow-sm ${selectedTests.includes(test)
+                                                    ? 'bg-primary text-background-dark border-primary shadow-primary/20 scale-105'
+                                                    : 'bg-[#0d1117] text-gray-400 border-white/5 hover:border-white/20 hover:text-white'
+                                                    }`}
+                                            >
+                                                {test}
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <div className="relative">
+                                        <span className="absolute top-3 left-4 material-symbols-outlined text-gray-600 text-sm">add_comment</span>
+                                        <input
+                                            type="text"
+                                            value={testsDetails}
+                                            onChange={(e) => setTestsDetails(e.target.value)}
+                                            placeholder="Detalles adicionales o resultados..."
+                                            className="w-full bg-[#0d1117] border border-white/5 rounded-xl pl-10 pr-4 py-3 text-white text-xs outline-none focus:border-primary/50 transition-colors placeholder:text-white/20"
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Diagnóstico Fisioterapéutico</label>
+
+                            <div className="bg-primary/5 p-5 rounded-2xl border border-primary/20 relative overflow-hidden group">
+                                <div className="absolute top-0 right-0 w-20 h-20 bg-primary/10 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
+                                <label className="text-[10px] font-black text-primary uppercase tracking-widest mb-3 block flex items-center gap-2 relative z-10">
+                                    <span className="material-symbols-outlined text-sm">medical_services</span>
+                                    Diagnóstico Fisioterapéutico
+                                </label>
                                 <textarea
                                     value={diagnosis}
                                     onChange={(e) => setDiagnosis(e.target.value)}
-                                    placeholder="Diagnóstico formal..."
-                                    className="w-full bg-background-dark border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary/50 transition-colors h-24 resize-none font-bold"
+                                    placeholder="Escriba el diagnóstico formal..."
+                                    className="w-full bg-[#0d1117]/80 border border-primary/20 rounded-xl px-4 py-3 text-white text-sm font-medium outline-none focus:border-primary/50 transition-colors h-24 resize-none leading-relaxed placeholder:text-white/20 relative z-10"
                                 />
                             </div>
                         </div>
@@ -196,48 +289,116 @@ const FisioForm: React.FC = () => {
 
                 {/* Injury Classification */}
                 <div className="bg-[#161b22] border border-white/5 rounded-3xl p-8 shadow-2xl">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <div className="space-y-2">
-                            <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Parte del Cuerpo</label>
-                            <input
-                                type="text"
-                                value={bodyPart}
-                                onChange={(e) => setBodyPart(e.target.value)}
-                                placeholder="Ej: Tobillo Derecho"
-                                className="w-full bg-background-dark border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary/50 transition-colors"
-                            />
+                    <div className="flex items-center justify-between gap-2 mb-6 border-b border-white/5 pb-4">
+                        <div className="flex items-center gap-2">
+                            <span className="material-symbols-outlined text-primary">personal_injury</span>
+                            <h3 className="text-sm font-black text-white uppercase tracking-widest">Clasificación de Lesión</h3>
                         </div>
-                        <div className="space-y-2">
-                            <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Tipo de Lesión</label>
-                            <select
-                                value={injuryType}
-                                onChange={(e) => setInjuryType(e.target.value)}
-                                className="w-full bg-background-dark border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary/50 transition-colors appearance-none"
-                            >
-                                {injuryTypes.map(t => <option key={t} value={t}>{t}</option>)}
-                            </select>
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Grado/Sub-tipo</label>
-                            <input
-                                type="text"
-                                value={injuryGrade}
-                                onChange={(e) => setInjuryGrade(e.target.value)}
-                                placeholder="Ej: Grado II"
-                                className="w-full bg-background-dark border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary/50 transition-colors"
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Causa</label>
-                            <select
-                                value={cause}
-                                onChange={(e) => setCause(e.target.value)}
-                                className="w-full bg-background-dark border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary/50 transition-colors appearance-none"
-                            >
-                                <option value="SOBRECARGA">SOBRECARGA</option>
-                                <option value="TRAUMATICO">TRAUMÁTICO</option>
-                            </select>
-                        </div>
+                        <button onClick={addInjury} className="text-[10px] font-black uppercase text-primary border border-primary/30 px-3 py-1.5 rounded-lg hover:bg-primary/10 transition-colors flex items-center gap-1">
+                            <span className="material-symbols-outlined text-sm">add</span> Añadir Otra Lesión
+                        </button>
+                    </div>
+
+                    <div className="space-y-6">
+                        {injuries.map((injury, index) => (
+                            <div key={injury.id} className="relative bg-background-dark/50 p-6 rounded-2xl border border-white/5">
+                                {index > 0 && (
+                                    <button
+                                        onClick={() => removeInjury(injury.id)}
+                                        className="absolute -top-2 -right-2 bg-rose-500 text-white p-1 rounded-full shadow-lg hover:bg-rose-600 transition-colors"
+                                    >
+                                        <span className="material-symbols-outlined text-xs">close</span>
+                                    </button>
+                                )}
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4">
+                                    {/* Body Area */}
+                                    <div className="space-y-2 lg:col-span-3">
+                                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Zona Corporal</label>
+                                        <select
+                                            value={injury.bodyArea}
+                                            onChange={(e) => updateInjury(injury.id, 'bodyArea', e.target.value)}
+                                            className="w-full bg-background-dark border border-white/10 rounded-xl px-3 py-3 text-white text-xs font-bold uppercase outline-none focus:border-primary/50 transition-colors"
+                                        >
+                                            <option value="">SELECCIONAR...</option>
+                                            {BODY_AREAS.map(area => <option key={area} value={area}>{area}</option>)}
+                                        </select>
+                                    </div>
+
+                                    {/* Side */}
+                                    <div className="space-y-2 lg:col-span-2">
+                                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Lado</label>
+                                        <select
+                                            value={injury.side}
+                                            onChange={(e) => updateInjury(injury.id, 'side', e.target.value)}
+                                            className="w-full bg-background-dark border border-white/10 rounded-xl px-3 py-3 text-white text-xs font-bold uppercase outline-none focus:border-primary/50 transition-colors"
+                                        >
+                                            {INJURY_SIDES.map(side => <option key={side} value={side}>{side}</option>)}
+                                        </select>
+                                    </div>
+
+                                    {/* Structure (Dependent) */}
+                                    <div className="space-y-2 lg:col-span-4">
+                                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Estructura Específica</label>
+                                        <div className="relative">
+                                            <select
+                                                value={injury.structure}
+                                                onChange={(e) => updateInjury(injury.id, 'structure', e.target.value)}
+                                                className="w-full bg-background-dark border border-white/10 rounded-xl px-3 py-3 text-white text-xs font-bold uppercase outline-none focus:border-primary/50 transition-colors appearance-none truncate pr-8"
+                                                disabled={!injury.bodyArea}
+                                            >
+                                                <option value="">{injury.bodyArea ? 'SELECCIONAR ESTRUCTURA...' : 'PRIMERO ZONA...'}</option>
+                                                {injury.bodyArea && STRUCTURES_BY_AREA[injury.bodyArea as keyof typeof STRUCTURES_BY_AREA]?.map(s => (
+                                                    <option key={s} value={s}>{s}</option>
+                                                ))}
+                                                <option value="OTRA">OTRA (ANALIZAR EN DETALLE)</option>
+                                            </select>
+                                            <span className="absolute right-3 top-3.5 material-symbols-outlined text-gray-500 text-sm pointer-events-none">arrow_drop_down</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Injury Type */}
+                                    <div className="space-y-2 lg:col-span-3">
+                                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Tipo</label>
+                                        <select
+                                            value={injury.type}
+                                            onChange={(e) => updateInjury(injury.id, 'type', e.target.value)}
+                                            className="w-full bg-background-dark border border-white/10 rounded-xl px-3 py-3 text-white text-xs font-bold uppercase outline-none focus:border-primary/50 transition-colors"
+                                        >
+                                            {INJURY_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
+                                        </select>
+                                    </div>
+
+                                    {/* Row 2 */}
+
+                                    {/* Cause */}
+                                    <div className="space-y-2 lg:col-span-3">
+                                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Causa</label>
+                                        <select
+                                            value={injury.cause}
+                                            onChange={(e) => updateInjury(injury.id, 'cause', e.target.value)}
+                                            className="w-full bg-background-dark border border-white/10 rounded-xl px-3 py-3 text-white text-xs font-bold uppercase outline-none focus:border-primary/50 transition-colors"
+                                        >
+                                            <option value="SOBRECARGA">SOBRECARGA</option>
+                                            <option value="TRAUMATICO">TRAUMÁTICO</option>
+                                            <option value="RECIDIVA">RECIDIVA</option>
+                                            <option value="OTRA">OTRA</option>
+                                        </select>
+                                    </div>
+
+                                    {/* Grade or Subtype */}
+                                    <div className="space-y-2 lg:col-span-9">
+                                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Grado / Detalle (Ampliado)</label>
+                                        <input
+                                            type="text"
+                                            value={injury.grade}
+                                            onChange={(e) => updateInjury(injury.id, 'grade', e.target.value)}
+                                            placeholder="EJ: GRADO II, ROTURA PARCIAL, EDEMA OSEO..."
+                                            className="w-full bg-background-dark border border-white/10 rounded-xl px-4 py-3 text-white text-xs font-bold uppercase outline-none focus:border-primary/50 transition-colors placeholder:text-gray-600"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
@@ -354,19 +515,40 @@ const FisioForm: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-8 p-6 bg-slate-50 rounded-2xl border border-slate-100">
-                            <div>
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Localización</p>
-                                <p className="text-sm font-black uppercase mt-1">{bodyPart || '---'}</p>
+                        <div className="bg-slate-50 rounded-2xl border border-slate-100 p-6">
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 border-b border-slate-200 pb-2">Clasificación de Lesión(es)</p>
+                            <div className="space-y-6">
+                                {injuries.map((injury, i) => (
+                                    <div key={i} className="grid grid-cols-4 gap-4 pb-4 border-b border-slate-200 last:border-0 last:pb-0">
+                                        <div className="col-span-1">
+                                            <p className="text-[9px] font-bold text-slate-400 uppercase">Zona & Lado</p>
+                                            <p className="text-xs font-black uppercase text-slate-900 mt-1">{injury.bodyArea} <span className="text-slate-500">({injury.side.substring(0, 3)})</span></p>
+                                        </div>
+                                        <div className="col-span-1">
+                                            <p className="text-[9px] font-bold text-slate-400 uppercase">Estructura</p>
+                                            <p className="text-xs font-black uppercase text-slate-900 mt-1">{injury.structure || '---'}</p>
+                                        </div>
+                                        <div className="col-span-1">
+                                            <p className="text-[9px] font-bold text-slate-400 uppercase">Tipo/Grado</p>
+                                            <p className="text-xs font-black uppercase text-slate-900 mt-1 leading-tight">{injury.type} <br /> <span className="text-slate-500 text-[10px]">{injury.grade}</span></p>
+                                        </div>
+                                        <div className="col-span-1">
+                                            <p className="text-[9px] font-bold text-slate-400 uppercase">Causa</p>
+                                            <p className="text-xs font-black uppercase text-slate-900 mt-1">{injury.cause}</p>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                            <div>
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Tipo de Lesión</p>
-                                <p className="text-sm font-black uppercase mt-1">{injuryType} ({injuryGrade})</p>
+                        </div>
+
+                        <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl">
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Pruebas Complementarias</p>
+                            <div className="flex flex-wrap gap-2 mb-2">
+                                {selectedTests.length > 0 ? selectedTests.map(t => (
+                                    <span key={t} className="px-2 py-1 bg-slate-200 rounded text-[9px] font-bold text-slate-700 uppercase">{t}</span>
+                                )) : <span className="text-[10px] text-slate-400 italic">No solicitadas</span>}
                             </div>
-                            <div>
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Etiología</p>
-                                <p className="text-sm font-black uppercase mt-1">{cause}</p>
-                            </div>
+                            {testsDetails && <p className="text-[10px] text-slate-600 italic border-t border-slate-200 pt-1 mt-1">{testsDetails}</p>}
                         </div>
 
                         <div>

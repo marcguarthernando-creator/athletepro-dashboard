@@ -43,8 +43,18 @@ const MetricWithHistory = ({ label, value, unit, trend, trendColor, history }: {
     );
 };
 
-const CompositionMetricWithHistory = ({ label, val, color, history }: { label: string, val: string, color: string, history: any[] }) => {
+const CompositionMetricWithHistory = ({ label, val, color, history, totalWeight }: { label: string, val: string, color: string, history: any[], totalWeight?: string }) => {
     const [isHovered, setIsHovered] = useState(false);
+
+    // Calculate kg if weight is provided
+    const kgValue = useMemo(() => {
+        if (!totalWeight) return null;
+        const percentage = parseFloat(val);
+        const weight = parseFloat(totalWeight);
+        if (isNaN(percentage) || isNaN(weight)) return null;
+        return ((percentage / 100) * weight).toFixed(1);
+    }, [val, totalWeight]);
+
     return (
         <div
             className="space-y-2 relative group cursor-help"
@@ -52,9 +62,12 @@ const CompositionMetricWithHistory = ({ label, val, color, history }: { label: s
             onMouseLeave={() => setIsHovered(false)}
         >
             {isHovered && <MetricTooltip label={label} history={history} />}
-            <div className="flex justify-between items-center px-1">
+            <div className="flex justify-between items-end px-1">
                 <span className="text-[10px] font-black text-white uppercase tracking-wider">{label}</span>
-                <span className="text-sm font-black text-white">{val}</span>
+                <div className="flex flex-col items-end leading-none">
+                    <span className="text-sm font-black text-white">{val}</span>
+                    {kgValue && <span className="text-[10px] font-bold text-text-secondary">{kgValue} kg</span>}
+                </div>
             </div>
             <div className="h-2 w-full bg-background-dark rounded-full overflow-hidden">
                 <div className={`h-full ${color}`} style={{ width: val }}></div>
@@ -193,9 +206,9 @@ const PlayerMedicalProfile: React.FC = () => {
 
             <div className="flex-1 flex overflow-hidden">
                 {/* Left Profile Summary */}
-                <aside className="w-80 flex-none border-r border-surface-border/50 bg-background-dark/40 overflow-y-auto p-8 flex flex-col items-center">
+                <aside className="w-52 flex-none border-r border-surface-border/50 bg-background-dark/40 overflow-y-auto p-3 flex flex-col items-center">
                     <div className="relative mb-6">
-                        <div className="w-40 h-40 rounded-3xl overflow-hidden border-4 border-primary/20 shadow-2xl">
+                        <div className="w-24 h-24 rounded-2xl overflow-hidden border-2 border-primary/20 shadow-xl">
                             <img src={player.photo} alt={player.name} className="w-full h-full object-cover" />
                         </div>
                         <div className={`absolute -bottom-2 -right-2 px-3 py-1 rounded-full text-[10px] font-black border-2 border-background-dark shadow-xl
@@ -205,36 +218,39 @@ const PlayerMedicalProfile: React.FC = () => {
                         </div>
                     </div>
 
-                    <h1 className="text-2xl font-black text-white text-center mb-1 uppercase tracking-tight">{player.name}</h1>
-                    <p className="text-primary font-bold text-sm tracking-widest mb-8">#{player.number} • {player.position.toUpperCase()}</p>
+                    <h1 className="text-lg font-black text-white text-center mb-0.5 uppercase tracking-tight leading-none">{player.name}</h1>
+                    <p className="text-primary font-bold text-[10px] tracking-widest mb-6 opacity-80">#{player.number} • {player.position.toUpperCase()}</p>
 
                     <div className="w-full space-y-4">
-                        <div className="bg-surface-dark/50 border border-surface-border/30 rounded-2xl p-4">
-                            <p className="text-[10px] text-text-secondary font-bold uppercase tracking-widest mb-2 opacity-50">Estado Actual</p>
-                            <div className="flex items-center justify-between">
+                        <div className="bg-surface-dark/50 border border-surface-border/30 rounded-xl p-3">
+                            <p className="text-[10px] text-text-secondary font-bold uppercase tracking-widest mb-3 opacity-50 text-center">Estado Actual</p>
+                            <div className="flex flex-col items-center gap-1">
                                 <span className={`text-sm font-black uppercase ${player.status === 'Disponible' ? 'text-emerald-400' : 'text-rose-400'}`}>{player.status}</span>
-                                <span className="text-[10px] text-text-secondary italic">{player.lastAssessment}</span>
+                                <span className="text-[9px] text-text-secondary italic">{player.lastAssessment}</span>
                             </div>
                         </div>
 
-                        <div className="bg-surface-dark/50 border border-surface-border/30 rounded-2xl p-4">
-                            <p className="text-[10px] text-text-secondary font-bold uppercase tracking-widest mb-2 opacity-50">Resumen Biométrico</p>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <p className="text-xs text-white font-bold">{getVal('biometrics.age', '22')} años</p>
-                                    <p className="text-[10px] text-text-secondary uppercase">Edad</p>
+                        <div className="bg-surface-dark/50 border border-surface-border/30 rounded-xl p-3">
+                            <p className="text-[10px] text-text-secondary font-bold uppercase tracking-widest mb-3 opacity-50 text-center">Biometría</p>
+                            <div className="flex flex-col gap-3">
+                                <div className="text-center group hover:bg-white/5 p-1 rounded-lg transition-colors cursor-default">
+                                    <p className="text-sm font-black text-white">{getVal('biometrics.age', '22')} <span className="text-[10px] text-text-secondary font-bold">AÑOS</span></p>
+                                    <p className="text-[8px] text-primary uppercase font-bold tracking-widest opacity-60">Edad</p>
                                 </div>
-                                <div>
-                                    <p className="text-xs text-white font-bold">{getVal('biometrics.height', '198.5')} cm</p>
-                                    <p className="text-[10px] text-text-secondary uppercase">Altura</p>
+                                <div className="w-full h-px bg-surface-border/30"></div>
+                                <div className="text-center group hover:bg-white/5 p-1 rounded-lg transition-colors cursor-default">
+                                    <p className="text-sm font-black text-white">{getVal('biometrics.height', '198.5')} <span className="text-[10px] text-text-secondary font-bold">CM</span></p>
+                                    <p className="text-[8px] text-primary uppercase font-bold tracking-widest opacity-60">Altura</p>
                                 </div>
-                                <div>
-                                    <p className="text-xs text-white font-bold">{getVal('biometrics.weight', '94.2')} kg</p>
-                                    <p className="text-[10px] text-text-secondary uppercase">Peso</p>
+                                <div className="w-full h-px bg-surface-border/30"></div>
+                                <div className="text-center group hover:bg-white/5 p-1 rounded-lg transition-colors cursor-default">
+                                    <p className="text-sm font-black text-white">{getVal('biometrics.weight', '94.2')} <span className="text-[10px] text-text-secondary font-bold">KG</span></p>
+                                    <p className="text-[8px] text-primary uppercase font-bold tracking-widest opacity-60">Peso</p>
                                 </div>
-                                <div>
-                                    <p className="text-xs text-white font-bold">{getVal('anthropometry.fat', '8.5')}%</p>
-                                    <p className="text-[10px] text-text-secondary uppercase">Grasa</p>
+                                <div className="w-full h-px bg-surface-border/30"></div>
+                                <div className="text-center group hover:bg-white/5 p-1 rounded-lg transition-colors cursor-default">
+                                    <p className="text-sm font-black text-white">{getVal('anthropometry.fat', '8.5')}<span className="text-[10px] text-text-secondary font-bold">%</span></p>
+                                    <p className="text-[8px] text-primary uppercase font-bold tracking-widest opacity-60">Grasa</p>
                                 </div>
                             </div>
                         </div>
@@ -322,6 +338,7 @@ const PlayerMedicalProfile: React.FC = () => {
                                                     label="Grasa Corporal"
                                                     val={getVal('anthropometry.fat', '13.1') + '%'}
                                                     color="bg-emerald-500"
+                                                    totalWeight={getVal('biometrics.weight', '94.2')}
                                                     history={[
                                                         { date: 'OCT 2025', value: '13.3%' },
                                                         { date: 'SEP 2025', value: '13.8%' },
@@ -332,6 +349,7 @@ const PlayerMedicalProfile: React.FC = () => {
                                                     label="Masa Muscular"
                                                     val={getVal('anthropometry.muscle', '45.9') + '%'}
                                                     color="bg-primary"
+                                                    totalWeight={getVal('biometrics.weight', '94.2')}
                                                     history={[
                                                         { date: 'OCT 2025', value: '45.2%' },
                                                         { date: 'SEP 2025', value: '44.8%' },
@@ -342,6 +360,7 @@ const PlayerMedicalProfile: React.FC = () => {
                                                     label="Masa Ósea"
                                                     val={getVal('anthropometry.bone', '11.2') + '%'}
                                                     color="bg-blue-500"
+                                                    totalWeight={getVal('biometrics.weight', '94.2')}
                                                     history={[
                                                         { date: 'JUN 2025', value: '11.1%' },
                                                         { date: 'ENE 2025', value: '11.0%' }
@@ -351,6 +370,7 @@ const PlayerMedicalProfile: React.FC = () => {
                                                     label="Residual"
                                                     val={getVal('anthropometry.residual', '29.8') + '%'}
                                                     color="bg-surface-border"
+                                                    totalWeight={getVal('biometrics.weight', '94.2')}
                                                     history={[
                                                         { date: 'OCT 2025', value: '30.4%' },
                                                         { date: 'SEP 2025', value: '30.5%' }

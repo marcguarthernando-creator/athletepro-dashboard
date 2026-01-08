@@ -389,8 +389,8 @@ export const playerMedicalData: Record<string, any> = {
       ]
     }
   },
-  "EMILIS PREKIVICIUS": {
-    "name": "EMILIS PREKIVICIUS",
+  "LUCAS VÁZQUEZ": {
+    "name": "LUCAS VÁZQUEZ",
     "biometrics": {
       "weight": "92.1",
       "height": "212.8",
@@ -519,8 +519,8 @@ export const playerMedicalData: Record<string, any> = {
       ]
     }
   },
-  "MANUEL CRUJEIRAS": {
-    "name": "MANUEL CRUJEIRAS",
+  "JORGE GONZÁLEZ": {
+    "name": "JORGE GONZÁLEZ",
     "biometrics": {
       "weight": "104.1",
       "height": "192.5",

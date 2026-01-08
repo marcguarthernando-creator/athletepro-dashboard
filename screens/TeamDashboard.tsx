@@ -1,27 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { mockPlayers } from '../services/mockPlayers';
 
 const TeamDashboard: React.FC = () => {
+    const [calendarId, setCalendarId] = useState('');
+    const [isEditingCalendar, setIsEditingCalendar] = useState(false);
+    const [tempCalendarId, setTempCalendarId] = useState('');
+
+    useEffect(() => {
+        const savedId = localStorage.getItem('team_calendar_id');
+        if (savedId) {
+            setCalendarId(savedId);
+        }
+    }, []);
+
+    const saveCalendarId = () => {
+        const cleanedId = tempCalendarId.trim();
+        if (cleanedId) {
+            localStorage.setItem('team_calendar_id', cleanedId);
+            setCalendarId(cleanedId);
+            setIsEditingCalendar(false);
+        }
+    };
+
     const disponibles = mockPlayers.filter(p => p.status === 'Disponible');
     const dudas = mockPlayers.filter(p => p.status === 'Duda');
     const bajas = mockPlayers.filter(p => p.status === 'Baja');
 
     // Mock treatments for today
     const treatments = [
-        { name: 'Manuel Crujeiras', injury: 'Esguince Tobillo Grado II', time: '10:00 - Fisioterapia', type: 'Rehabilitación' },
-        { name: 'Rafa Rodríguez', injury: 'Sobrecarga Isquios', time: '11:30 - Masaje Descarga', type: 'Mantenimiento' },
-        { name: 'Emilis Prekivicius', injury: 'Molestias Rodilla', time: '12:00 - Valoración Médica', type: 'Evaluación' }
+        { name: 'Jorge González', injury: 'Esguince Tobillo Grado II', time: '10:00 - Fisioterapia', type: 'Rehabilitación' },
+        { name: 'Pablo Torres', injury: 'Sobrecarga Isquios', time: '11:30 - Masaje Descarga', type: 'Mantenimiento' },
+        { name: 'Lucas Vázquez', injury: 'Molestias Rodilla', time: '12:00 - Valoración Médica', type: 'Evaluación' }
     ];
 
-    const weekDays = [
-        { day: 'LUN', date: '22', active: false },
-        { day: 'MAR', date: '23', active: false },
-        { day: 'MIÉ', date: '24', active: false },
-        { day: 'JUE', date: '25', active: false },
-        { day: 'VIE', date: '26', active: true },
-        { day: 'SÁB', date: '27', active: false },
-        { day: 'DOM', date: '28', active: false },
-    ];
+    const calendarSrc = `https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FMadrid&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0&mode=WEEK&hl=es&src=${encodeURIComponent(calendarId)}`;
 
     return (
         <div className="flex-1 flex flex-col h-full overflow-y-auto p-6 md:p-10 bg-background-dark/30">
@@ -77,7 +89,7 @@ const TeamDashboard: React.FC = () => {
             </div>
 
             {/* Treatments Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10 min-h-[500px]">
                 <div className="lg:col-span-1">
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="text-lg font-black text-white uppercase tracking-tight flex items-center gap-2">
@@ -105,58 +117,67 @@ const TeamDashboard: React.FC = () => {
                 </div>
 
                 {/* Weekly Calendar */}
-                <div className="lg:col-span-2">
+                <div className="lg:col-span-2 flex flex-col h-full">
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="text-lg font-black text-white uppercase tracking-tight flex items-center gap-2">
                             <span className="material-symbols-outlined text-blue-400">calendar_month</span>
-                            Calendario Semanal
+                            Calendario Equipo
                         </h3>
-                        <div className="flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-3 py-1.5 rounded-full">
+                        <button
+                            onClick={() => setIsEditingCalendar(!isEditingCalendar)}
+                            className="flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-3 py-1.5 rounded-full hover:bg-blue-500/20 transition-colors"
+                        >
                             <img src="https://www.gstatic.com/images/branding/product/1x/calendar_2020q4_48dp.png" alt="GCal" className="w-4 h-4" />
-                            <span className="text-[10px] text-blue-400 font-bold tracking-tight uppercase">Google Calendar Activo</span>
-                        </div>
+                            <span className="text-[10px] text-blue-400 font-bold tracking-tight uppercase">
+                                {calendarId ? 'Configurar Calendar' : 'Vincular Calendar'}
+                            </span>
+                        </button>
                     </div>
 
-                    <div className="bg-surface-dark border border-surface-border rounded-2xl p-6 shadow-xl relative overflow-hidden h-[400px]">
-                        <div className="grid grid-cols-7 gap-px h-full">
-                            {weekDays.map((wd, i) => (
-                                <div key={i} className={`flex flex-col items-center h-full border-r border-surface-border/30 last:border-0 ${wd.active ? 'bg-primary/5' : ''}`}>
-                                    <span className={`text-[10px] font-black tracking-widest mb-1 ${wd.active ? 'text-primary' : 'text-text-secondary'}`}>
-                                        {wd.day}
-                                    </span>
-                                    <span className={`text-sm font-black mb-4 w-7 h-7 flex items-center justify-center rounded-full ${wd.active ? 'bg-primary text-background-dark scale-110 shadow-[0_0_15px_rgba(25,240,133,0.3)]' : 'text-white'}`}>
-                                        {wd.date}
-                                    </span>
-
-                                    <div className="w-full flex flex-col gap-2 px-1">
-                                        {i === 2 && (
-                                            <div className="bg-blue-500/20 border-l-2 border-blue-500 p-1.5 rounded-r text-[9px]">
-                                                <p className="font-bold text-blue-400 uppercase">Sesión Táctica</p>
-                                                <p className="text-text-secondary opacity-70">10:00 - 11:30</p>
-                                            </div>
-                                        )}
-                                        {i === 4 && (
-                                            <>
-                                                <div className="bg-primary/20 border-l-2 border-primary p-1.5 rounded-r text-[9px]">
-                                                    <p className="font-bold text-primary uppercase">Entreno Equipo</p>
-                                                    <p className="text-text-secondary opacity-70">09:00 - 11:00</p>
-                                                </div>
-                                                <div className="bg-amber-500/20 border-l-2 border-amber-500 p-1.5 rounded-r text-[9px]">
-                                                    <p className="font-bold text-amber-400 uppercase">Consultas Med</p>
-                                                    <p className="text-text-secondary opacity-70">12:00 - 14:00</p>
-                                                </div>
-                                            </>
-                                        )}
-                                        {i === 6 && (
-                                            <div className="bg-rose-500/20 border-l-2 border-rose-500 p-1.5 rounded-r text-[9px]">
-                                                <p className="font-bold text-rose-500 uppercase">Partido vs Joventut</p>
-                                                <p className="text-text-secondary opacity-70">18:30</p>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            ))}
+                    {isEditingCalendar && (
+                        <div className="mb-4 bg-surface-dark border border-blue-500/30 p-4 rounded-xl animate-in slide-in-from-top-2">
+                            <p className="text-xs text-text-secondary mb-2 font-bold uppercase">Introduce SÓLO tu EMAIL de Gmail (No pegues un enlace):</p>
+                            <div className="flex gap-2">
+                                <input
+                                    type="text"
+                                    value={tempCalendarId}
+                                    onChange={(e) => setTempCalendarId(e.target.value)}
+                                    placeholder="ej: usuario@gmail.com"
+                                    className="flex-1 bg-background-dark border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500 outline-none uppercase"
+                                />
+                                <button
+                                    onClick={saveCalendarId}
+                                    className="bg-blue-500 text-white px-4 py-2 rounded-lg text-xs font-bold uppercase hover:bg-blue-600 transition-colors"
+                                >
+                                    Guardar y Sincronizar
+                                </button>
+                            </div>
+                            <p className="text-[10px] text-gray-500 mt-2">
+                                *Aviso: Si ves un error 400, asegúrate de haber puesto solo el email. Si no carga eventos, verifica que el calendario sea público o estés logueado en este navegador.
+                            </p>
                         </div>
+                    )}
+
+                    <div className="flex-1 bg-surface-dark border border-surface-border rounded-2xl overflow-hidden shadow-xl min-h-[400px] relative">
+                        {calendarId ? (
+                            <iframe
+                                src={calendarSrc}
+                                style={{ border: 0, width: '100%', height: '100%', filter: 'invert(0.93) hue-rotate(180deg)' }}
+                                frameBorder="0"
+                                scrolling="no"
+                            ></iframe>
+                        ) : (
+                            <div className="w-full h-full flex flex-col items-center justify-center text-text-secondary opacity-50 gap-4">
+                                <span className="material-symbols-outlined text-6xl">calendar_today</span>
+                                <p className="text-sm font-bold uppercase tracking-widest">No hay calendario vinculado</p>
+                                <button
+                                    onClick={() => setIsEditingCalendar(true)}
+                                    className="text-primary text-xs font-bold underline decoration-2 underline-offset-4 hover:text-white transition-colors uppercase"
+                                >
+                                    Vincular ahora
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
