@@ -1,16 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { mockPlayers } from '../services/mockPlayers';
+import { Player, mockPlayers as fallbackMock } from '../services/mockPlayers';
+import { getPlayers } from '../services/playerService';
 
 const TeamDashboard: React.FC = () => {
     const [calendarId, setCalendarId] = useState('');
     const [isEditingCalendar, setIsEditingCalendar] = useState(false);
     const [tempCalendarId, setTempCalendarId] = useState('');
 
+    // State for players
+    const [players, setPlayers] = useState<Player[]>([]);
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         const savedId = localStorage.getItem('team_calendar_id');
         if (savedId) {
             setCalendarId(savedId);
         }
+
+        // Fetch players from Supabase
+        const fetchPlayers = async () => {
+            try {
+                const data = await getPlayers();
+                if (data.length > 0) {
+                    setPlayers(data);
+                } else {
+                    // Fallback to mock if DB is empty or error
+                    setPlayers(fallbackMock);
+                }
+            } catch (error) {
+                console.error("Failed to fetch players", error);
+                setPlayers(fallbackMock);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPlayers();
     }, []);
 
     const saveCalendarId = () => {
@@ -22,9 +47,9 @@ const TeamDashboard: React.FC = () => {
         }
     };
 
-    const disponibles = mockPlayers.filter(p => p.status === 'Disponible');
-    const dudas = mockPlayers.filter(p => p.status === 'Duda');
-    const bajas = mockPlayers.filter(p => p.status === 'Baja');
+    const disponibles = players.filter(p => p.status === 'Disponible');
+    const dudas = players.filter(p => p.status === 'Duda');
+    const bajas = players.filter(p => p.status === 'Baja');
 
     // Mock treatments for today
     const treatments = [

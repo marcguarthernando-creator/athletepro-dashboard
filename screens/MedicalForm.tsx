@@ -4,7 +4,36 @@ import { mockPlayers } from '../services/mockPlayers';
 import { playerMedicalData } from '../services/playerMedicalData';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
-import { BODY_AREAS, INJURY_SIDES, INJURY_TYPES, STRUCTURES_BY_AREA } from '../services/injuryData';
+import { BODY_AREAS, INJURY_SIDES, INJURY_TYPES, STRUCTURES_BY_AREA, DIAGNOSES_BY_TYPE } from '../services/injuryData';
+
+const RichTextEditor = ({ value, onChange, placeholder }: { value: string, onChange: (val: string) => void, placeholder: string }) => {
+    return (
+        <div className="bg-[#0d1117] border border-white/5 rounded-xl overflow-hidden focus-within:border-primary/50 transition-colors">
+            {/* Toolbar */}
+            <div className="flex items-center gap-1 p-2 border-b border-white/5 bg-white/[0.02]">
+                <button className="p-1 hover:bg-white/10 rounded text-gray-400 hover:text-white transition-colors" title="Bold">
+                    <span className="material-symbols-outlined text-sm">format_bold</span>
+                </button>
+                <button className="p-1 hover:bg-white/10 rounded text-gray-400 hover:text-white transition-colors" title="Italic">
+                    <span className="material-symbols-outlined text-sm">format_italic</span>
+                </button>
+                <button className="p-1 hover:bg-white/10 rounded text-gray-400 hover:text-white transition-colors" title="Underline">
+                    <span className="material-symbols-outlined text-sm">format_underlined</span>
+                </button>
+                <div className="w-px h-4 bg-white/10 mx-1"></div>
+                <button className="p-1 hover:bg-white/10 rounded text-gray-400 hover:text-white transition-colors" title="List">
+                    <span className="material-symbols-outlined text-sm">format_list_bulleted</span>
+                </button>
+            </div>
+            <textarea
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                placeholder={placeholder}
+                className="w-full bg-transparent px-4 py-3 text-white text-sm outline-none h-32 resize-none leading-relaxed placeholder:text-white/20"
+            />
+        </div>
+    );
+};
 
 const MedicalForm: React.FC = () => {
     const navigate = useNavigate();
@@ -21,19 +50,21 @@ const MedicalForm: React.FC = () => {
         side: string;
         type: string;
         structure: string;
-        grade: string;
+        diagnosis: string; // Renamed from grade/detail to diagnosis for new structure
         cause: string;
+        severity: string; // New field
     }
 
     // Default empty injury
     const createEmptyInjury = (): InjuryRecord => ({
         id: crypto.randomUUID(),
-        bodyArea: '',
-        side: 'DERECHA',
-        type: 'MUSCULAR',
+        bodyArea: 'Leg',
+        side: 'Right',
+        type: 'Muscular',
         structure: '',
-        grade: '',
-        cause: 'SOBRECARGA'
+        diagnosis: '',
+        cause: 'Overload',
+        severity: 'Moderate (8-28 days)'
     });
 
     const [injuries, setInjuries] = useState<InjuryRecord[]>([createEmptyInjury()]);
@@ -61,6 +92,9 @@ const MedicalForm: React.FC = () => {
     const [diagnosis, setDiagnosis] = useState('');
     const [treatment, setTreatment] = useState('');
     const [status, setStatus] = useState('OFF');
+    const [notes, setNotes] = useState(''); // New Notes field
+    const [publicInfo, setPublicInfo] = useState(''); // New Public Info field
+    const [isPublicInfoOpen, setIsPublicInfoOpen] = useState(false); // Collapsible state
     const [files, setFiles] = useState<File[]>([]);
     const [saving, setSaving] = useState(false);
 
@@ -214,11 +248,10 @@ const MedicalForm: React.FC = () => {
                                     <div className="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
                                     Anamnesis
                                 </label>
-                                <textarea
+                                <RichTextEditor
                                     value={anamnesis}
-                                    onChange={(e) => setAnamnesis(e.target.value)}
+                                    onChange={setAnamnesis}
                                     placeholder="Descripción detallada de lo que relata el paciente..."
-                                    className="w-full bg-[#0d1117] border border-white/5 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary/50 transition-colors h-32 resize-none leading-relaxed placeholder:text-white/20"
                                 />
                             </div>
                             <div className="bg-background-dark/30 p-4 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
@@ -226,45 +259,46 @@ const MedicalForm: React.FC = () => {
                                     <div className="w-1.5 h-1.5 rounded-full bg-indigo-400"></div>
                                     Exploración Física
                                 </label>
-                                <textarea
+                                <RichTextEditor
                                     value={physicalExam}
-                                    onChange={(e) => setPhysicalExam(e.target.value)}
+                                    onChange={setPhysicalExam}
                                     placeholder="Hallazgos físicos, maniobras, dolor a la palpación..."
-                                    className="w-full bg-[#0d1117] border border-white/5 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-primary/50 transition-colors h-32 resize-none leading-relaxed placeholder:text-white/20"
                                 />
                             </div>
                         </div>
 
                         {/* Right Column: Tests & Diagnosis */}
                         <div className="space-y-6">
-                            <div className="bg-background-dark/30 p-5 rounded-2xl border border-white/5 hover:border-white/10 transition-colors">
-                                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-4 block flex items-center gap-2">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
+                            <div className="bg-[#111827]/40 border border-white/5 p-8 rounded-[32px] backdrop-blur-sm">
+                                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest mb-6 block flex items-center gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(34,197,94,0.4)]"></div>
                                     Pruebas Complementarias
                                 </label>
-                                <div className="space-y-4">
+                                <div className="space-y-6">
                                     <div className="flex flex-wrap gap-2">
                                         {commonTests.map(test => (
                                             <button
                                                 key={test}
                                                 onClick={() => toggleTest(test)}
-                                                className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border shadow-sm ${selectedTests.includes(test)
-                                                    ? 'bg-primary text-background-dark border-primary shadow-primary/20 scale-105'
-                                                    : 'bg-[#0d1117] text-gray-400 border-white/5 hover:border-white/20 hover:text-white'
+                                                className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border
+                                                    ${selectedTests.includes(test)
+                                                        ? 'bg-primary/20 border-primary text-primary shadow-[0_0_15px_rgba(34,197,94,0.15)]'
+                                                        : 'bg-white/5 border-white/10 text-text-secondary hover:border-white/20 hover:text-white'
                                                     }`}
                                             >
                                                 {test}
                                             </button>
                                         ))}
                                     </div>
-                                    <div className="relative">
-                                        <span className="absolute top-3 left-4 material-symbols-outlined text-gray-600 text-sm">add_comment</span>
-                                        <input
-                                            type="text"
+                                    <div className="relative group/input">
+                                        <div className="absolute left-4 top-4 text-text-secondary group-focus-within/input:text-primary transition-colors">
+                                            <span className="material-symbols-outlined text-sm">add_box</span>
+                                        </div>
+                                        <textarea
                                             value={testsDetails}
                                             onChange={(e) => setTestsDetails(e.target.value)}
-                                            placeholder="Detalles adicionales o resultados..."
-                                            className="w-full bg-[#0d1117] border border-white/5 rounded-xl pl-10 pr-4 py-3 text-white text-xs outline-none focus:border-primary/50 transition-colors placeholder:text-white/20"
+                                            placeholder="DETALLES ADICIONALES O RESULTADOS..."
+                                            className="w-full bg-[#0d1117]/60 border border-white/5 rounded-2xl py-4 pl-12 pr-4 text-xs text-white placeholder:text-text-secondary/30 focus:outline-none focus:border-primary/30 transition-all min-h-[80px] resize-none uppercase font-black tracking-wider leading-relaxed"
                                         />
                                     </div>
                                 </div>
@@ -319,7 +353,7 @@ const MedicalForm: React.FC = () => {
                                             onChange={(e) => updateInjury(injury.id, 'bodyArea', e.target.value)}
                                             className="w-full bg-background-dark border border-white/10 rounded-xl px-3 py-3 text-white text-xs font-bold uppercase outline-none focus:border-primary/50 transition-colors"
                                         >
-                                            <option value="">SELECCIONAR...</option>
+                                            <option value="">Select...</option>
                                             {BODY_AREAS.map(area => <option key={area} value={area}>{area}</option>)}
                                         </select>
                                     </div>
@@ -346,11 +380,10 @@ const MedicalForm: React.FC = () => {
                                                 className="w-full bg-background-dark border border-white/10 rounded-xl px-3 py-3 text-white text-xs font-bold uppercase outline-none focus:border-primary/50 transition-colors appearance-none truncate pr-8"
                                                 disabled={!injury.bodyArea}
                                             >
-                                                <option value="">{injury.bodyArea ? 'SELECCIONAR ESTRUCTURA...' : 'PRIMERO ZONA...'}</option>
+                                                <option value="">{injury.bodyArea ? 'Select Structure...' : 'Select Zone First...'}</option>
                                                 {injury.bodyArea && STRUCTURES_BY_AREA[injury.bodyArea as keyof typeof STRUCTURES_BY_AREA]?.map(s => (
                                                     <option key={s} value={s}>{s}</option>
                                                 ))}
-                                                <option value="OTRA">OTRA (ANALIZAR EN DETALLE)</option>
                                             </select>
                                             <span className="absolute right-3 top-3.5 material-symbols-outlined text-gray-500 text-sm pointer-events-none">arrow_drop_down</span>
                                         </div>
@@ -358,7 +391,7 @@ const MedicalForm: React.FC = () => {
 
                                     {/* Injury Type */}
                                     <div className="space-y-2 lg:col-span-3">
-                                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Tipo</label>
+                                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Tipo / Clasificación</label>
                                         <select
                                             value={injury.type}
                                             onChange={(e) => updateInjury(injury.id, 'type', e.target.value)}
@@ -370,36 +403,103 @@ const MedicalForm: React.FC = () => {
 
                                     {/* Row 2 */}
 
+                                    {/* Diagnosis (Dependent on Type) */}
+                                    <div className="space-y-2 lg:col-span-4">
+                                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Diagnóstico Específico</label>
+                                        <div className="relative">
+                                            <select
+                                                value={injury.diagnosis}
+                                                onChange={(e) => updateInjury(injury.id, 'diagnosis', e.target.value)}
+                                                className="w-full bg-background-dark border border-white/10 rounded-xl px-3 py-3 text-white text-xs font-bold uppercase outline-none focus:border-primary/50 transition-colors"
+                                            >
+                                                <option value="">Select Diagnosis...</option>
+                                                {DIAGNOSES_BY_TYPE[injury.type as keyof typeof DIAGNOSES_BY_TYPE]?.map(d => (
+                                                    <option key={d} value={d}>{d}</option>
+                                                ))}
+                                            </select>
+                                            <span className="absolute right-3 top-3.5 material-symbols-outlined text-gray-500 text-sm pointer-events-none">arrow_drop_down</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Severity (New Field) */}
+                                    <div className="space-y-2 lg:col-span-4">
+                                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Severidad</label>
+                                        <select
+                                            value={injury.severity}
+                                            onChange={(e) => updateInjury(injury.id, 'severity', e.target.value)}
+                                            className="w-full bg-background-dark border border-white/10 rounded-xl px-3 py-3 text-white text-xs font-bold uppercase outline-none focus:border-primary/50 transition-colors"
+                                        >
+                                            <option value="Minimum (1-3 days)">Minimum (1-3 days)</option>
+                                            <option value="Mild (4-7 days)">Mild (4-7 days)</option>
+                                            <option value="Moderate (8-28 days)">Moderate (8-28 days)</option>
+                                            <option value="Severe (> 28 days)">Severe (&gt; 28 days)</option>
+                                        </select>
+                                    </div>
+
                                     {/* Cause */}
-                                    <div className="space-y-2 lg:col-span-3">
+                                    <div className="space-y-2 lg:col-span-4">
                                         <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Causa</label>
                                         <select
                                             value={injury.cause}
                                             onChange={(e) => updateInjury(injury.id, 'cause', e.target.value)}
                                             className="w-full bg-background-dark border border-white/10 rounded-xl px-3 py-3 text-white text-xs font-bold uppercase outline-none focus:border-primary/50 transition-colors"
                                         >
-                                            <option value="SOBRECARGA">SOBRECARGA</option>
-                                            <option value="TRAUMATICO">TRAUMÁTICO</option>
-                                            <option value="RECIDIVA">RECIDIVA</option>
-                                            <option value="OTRA">OTRA</option>
+                                            <option value="Overload">Overload</option>
+                                            <option value="Traumatic">Traumatic</option>
+                                            <option value="Recurrence">Recurrence</option>
+                                            <option value="Other">Other</option>
                                         </select>
-                                    </div>
-
-                                    {/* Grade or Subtype */}
-                                    <div className="space-y-2 lg:col-span-9">
-                                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Grado / Detalle (Ampliado)</label>
-                                        <input
-                                            type="text"
-                                            value={injury.grade}
-                                            onChange={(e) => updateInjury(injury.id, 'grade', e.target.value)}
-                                            placeholder="EJ: GRADO II, ROTURA PARCIAL, EDEMA OSEO..."
-                                            className="w-full bg-background-dark border border-white/10 rounded-xl px-4 py-3 text-white text-xs font-bold uppercase outline-none focus:border-primary/50 transition-colors placeholder:text-gray-600"
-                                        />
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
+                </div>
+
+                {/* Additional Clinical Notes (New Section) */}
+                <div className="bg-[#161b22] border border-white/5 rounded-3xl p-8 shadow-2xl">
+                    <div className="flex items-center gap-2 mb-6">
+                        <span className="material-symbols-outlined text-amber-500">sticky_note_2</span>
+                        <h3 className="text-sm font-black text-white uppercase tracking-widest">Notas Clínicas Adicionales</h3>
+                    </div>
+                    <div className="space-y-2">
+                        <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Notas de Evolución / Observaciones</label>
+                        <RichTextEditor
+                            value={notes}
+                            onChange={setNotes}
+                            placeholder="Añadir notas de evolución, observaciones subjetivas o comentarios privados..."
+                        />
+                    </div>
+                </div>
+
+                {/* Public Information (Collapsible) */}
+                <div className="bg-[#161b22] border border-white/5 rounded-3xl shadow-2xl overflow-hidden">
+                    <button
+                        onClick={() => setIsPublicInfoOpen(!isPublicInfoOpen)}
+                        className="w-full flex items-center justify-between p-8 hover:bg-white/5 transition-colors"
+                    >
+                        <div className="flex items-center gap-2">
+                            <span className="material-symbols-outlined text-blue-400">public</span>
+                            <h3 className="text-sm font-black text-white uppercase tracking-widest">Información Pública (Prensa)</h3>
+                        </div>
+                        <span className={`material-symbols-outlined text-gray-500 transition-transform duration-300 ${isPublicInfoOpen ? 'rotate-180' : ''}`}>expand_more</span>
+                    </button>
+
+                    {isPublicInfoOpen && (
+                        <div className="px-8 pb-8 animate-in slide-in-from-top-4 duration-300">
+                            <div className="bg-blue-500/5 border border-blue-500/20 rounded-xl p-4 mb-4">
+                                <p className="text-xs text-blue-200 flex items-center gap-2">
+                                    <span className="material-symbols-outlined text-sm">info</span>
+                                    Esta información es visible para el departamento de prensa.
+                                </p>
+                            </div>
+                            <RichTextEditor
+                                value={publicInfo}
+                                onChange={setPublicInfo}
+                                placeholder="Redactar parte médico oficial para medios de comunicación..."
+                            />
+                        </div>
+                    )}
                 </div>
 
                 {/* Treatment & Status */}

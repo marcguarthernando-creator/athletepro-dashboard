@@ -2,11 +2,19 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mockPlayers } from '../services/mockPlayers';
 
+import { useAuth } from '../contexts/AuthContext';
+import PlayerStatsReportModal from './PlayerStatsReportModal';
+
 const MedicalDashboard: React.FC = () => {
     const navigate = useNavigate();
-    const userEmail = localStorage.getItem('userEmail');
-    const isFisio = userEmail === 'fisio@cbc.com';
-    const isPrepa = userEmail === 'prepa@cbc.com';
+    const { user } = useAuth();
+    const userEmail = user?.email || localStorage.getItem('userEmail');
+    const [selectedReportPlayer, setSelectedReportPlayer] = React.useState<any>(null);
+    const [showReportModal, setShowReportModal] = React.useState(false);
+
+    // Logic to determine base path for navigation links
+    const isFisio = userEmail?.includes('fisio');
+    const isPrepa = userEmail?.includes('prepa');
     const basePath = isFisio ? '/fisio' : isPrepa ? '/prepa' : '/medical';
 
     const disponibles = mockPlayers.filter(p => p.status === 'Disponible').length;
@@ -90,7 +98,10 @@ const MedicalDashboard: React.FC = () => {
 
                         <div className="px-4 py-3 bg-primary/5 border-t border-primary/10 flex justify-center">
                             <button
-                                onClick={() => navigate(`${basePath}/report/${player.id}`)}
+                                onClick={() => {
+                                    setSelectedReportPlayer(player);
+                                    setShowReportModal(true);
+                                }}
                                 className="text-[10px] text-primary font-bold uppercase tracking-widest hover:underline cursor-pointer"
                             >
                                 {isFisio ? 'Ver Informe Fisio' : isPrepa ? 'Ver Perfil Atlético' : 'Ver Informe Médico'}
@@ -99,7 +110,14 @@ const MedicalDashboard: React.FC = () => {
                     </div>
                 ))}
             </div>
-        </div>
+
+
+            <PlayerStatsReportModal
+                isOpen={showReportModal}
+                onClose={() => setShowReportModal(false)}
+                player={selectedReportPlayer}
+            />
+        </div >
     );
 };
 

@@ -1,56 +1,91 @@
 
-export type BodyArea =
-    | 'CABEZA/CUELLO'
-    | 'HOMBRO'
-    | 'BRAZO/CODO'
-    | 'ANTEBRAZO/MUÑECA'
-    | 'MANO/DEDOS'
-    | 'TORAX/ABDOMEN'
-    | 'COLUMNA'
-    | 'CADERA/INGLE'
-    | 'MUSLO'
-    | 'RODILLA'
-    | 'PIERNA'
-    | 'TOBILLO'
-    | 'PIE/DEDOS';
+export type BodyArea = 'Head' | 'Neck' | 'Shoulder' | 'Trunk' | 'Arm' | 'Leg';
 
-export type InjurySide = 'IZQUIERDA' | 'DERECHA' | 'BILATERAL' | 'CENTRAL/NO APLICA';
+export type InjurySide = 'Left' | 'Right' | 'Bilateral' | 'Center/NA';
 
 export type InjuryType =
-    | 'MUSCULAR'
-    | 'TENDINOSA'
-    | 'LIGAMENTOSA'
-    | 'ARTICULAR/MENISCAL'
-    | 'OSEA'
-    | 'NEUROLOGICA'
-    | 'OTRA';
+    | 'Common disease'
+    | 'Articular'
+    | 'Muscular'
+    | 'Tendinous'
+    | 'Ligamentous'
+    | 'Osseous'
+    | 'Meniscus'
+    | 'Cartilage'
+    | 'Concussion'
+    | 'Hematoma / Bruise';
 
-export const BODY_AREAS: BodyArea[] = [
-    'CABEZA/CUELLO', 'HOMBRO', 'BRAZO/CODO', 'ANTEBRAZO/MUÑECA', 'MANO/DEDOS',
-    'TORAX/ABDOMEN', 'COLUMNA', 'CADERA/INGLE', 'MUSLO', 'RODILLA', 'PIERNA', 'TOBILLO', 'PIE/DEDOS'
-];
+export const BODY_AREAS: BodyArea[] = ['Head', 'Neck', 'Shoulder', 'Trunk', 'Arm', 'Leg'];
 
-export const INJURY_SIDES: InjurySide[] = ['IZQUIERDA', 'DERECHA', 'BILATERAL', 'CENTRAL/NO APLICA'];
+export const INJURY_SIDES: InjurySide[] = ['Left', 'Right', 'Bilateral', 'Center/NA'];
 
 export const INJURY_TYPES: InjuryType[] = [
-    'MUSCULAR', 'TENDINOSA', 'LIGAMENTOSA', 'ARTICULAR/MENISCAL', 'OSEA', 'NEUROLOGICA', 'OTRA'
+    'Common disease',
+    'Articular',
+    'Muscular',
+    'Tendinous',
+    'Ligamentous',
+    'Osseous',
+    'Meniscus',
+    'Cartilage',
+    'Concussion',
+    'Hematoma / Bruise'
 ];
 
-// Map of Body Area -> List of common specific structures based on type
-// This is a simplified map to start with common keys.
-// We can use a simpler structure: BodyArea -> List of Structure strings
 export const STRUCTURES_BY_AREA: Record<BodyArea, string[]> = {
-    'CABEZA/CUELLO': ['Cráneo', 'Cervicales', 'Bruxismo/ATM', 'Trapecio Superior', 'Esternocleidomastoideo', 'Conmoción'],
-    'HOMBRO': ['Manguito Rotador', 'Supraespinoso', 'Infraespinoso', 'Subescapular', 'Labrum (SLAP)', 'Acromioclavicular', 'Deltoides', 'Bíceps (Cabeza Larga)'],
-    'BRAZO/CODO': ['Bíceps Braquial', 'Tríceps', 'Epicóndilo (Tenista)', 'Epitróclea (Golfista)', 'Bursa Olecraniana'],
-    'ANTEBRAZO/MUÑECA': ['Flexores Muñeca', 'Extensores Muñeca', 'Escafoides', 'Túnel Carpiano', 'Radio/Cúbito'],
-    'MANO/DEDOS': ['Metacarpiano', 'Falange', 'Lig. Colateral Dedo', 'Tendón Flexor/Extensor'],
-    'TORAX/ABDOMEN': ['Pectoral Mayor/Menor', 'Recto Abdominal', 'Oblicuos', 'Costillas', 'Esternón', 'Intercostales'],
-    'COLUMNA': ['Lumbar', 'Dorsal', 'Hernia Discal', 'Ciática', 'Cuadrado Lumbar', 'Paravertebrales'],
-    'CADERA/INGLE': ['Aductor Largo', 'Aductor Mayor', 'Psoas Ilíaco', 'Recto Anterior (Proximal)', 'Labrum Acetabular', 'Glúteo Medio/Mayor', 'Pubalgia', 'Trocánter'],
-    'MUSLO': ['Recto Anterior', 'Vasto Interno/Externo', 'Bíceps Femoral', 'Semimembranoso', 'Semitendinoso', 'Cuádriceps (General)', 'Isquiosurales (General)', 'Bocadillo (Contusión)'],
-    'RODILLA': ['LCA (Cruzado Anterior)', 'LCP (Cruzado Posterior)', 'LLI (Lateral Interno)', 'LLE (Lateral Externo)', 'Menisco Interno', 'Menisco Externo', 'Tendón Rotuliano', 'Cartílago/Condropatía', 'Cintilla Iliotibial'],
-    'PIERNA': ['Gemelo Interno', 'Gemelo Externo', 'Sóleo', 'Tibial Anterior', 'Peroneos', 'Aquiles', 'Fractura Estrés Tibia'],
-    'TOBILLO': ['LLE (PAA/PC/PCC)', 'Ligamento Deltoideo', 'Sindesmosis', 'Impingement Anterior/Posterior', 'Astrágalo'],
-    'PIE/DEDOS': ['Fascitis Plantar', 'Metatarsiano (Fractura Estrés)', 'Sesamoideos', 'Neuroma Morton', 'Falange Dedo']
+    'Head': [
+        'Top of the head', 'Fronthead', 'Back of the head', 'Ear', 'Eyebrow',
+        'Eye', 'Nose', 'Mouth', 'Cheek', 'Jaw', 'Chin'
+    ],
+    'Neck': [
+        'Cervical Spine', 'Trapezius', 'Sternocleidomastoid', 'Throat', 'Nape'
+    ],
+    'Shoulder': [
+        'Clavicle', 'Scapula', 'Rotator Cuff', 'Deltoid', 'AC Joint', 'Glenohumeral Joint'
+    ],
+    'Trunk': [
+        'Chest', 'Waist', 'Hip', 'Belly', 'Groin', 'Back',
+        'Lung', 'Heart', 'Stomach', 'Liver', 'Kidney', 'Pubis'
+    ],
+    'Arm': [
+        'Arm', 'Elbow', 'Forearm', 'Wrist', 'Hand', 'Finger', 'Nail'
+    ],
+    'Leg': [
+        'Buttock', 'Adductor', 'Thigh', 'Knee', 'Calf',
+        'Shin', 'Ankle', 'Foot', 'Heel', 'Instep', 'Sole', 'Toe', 'Nail'
+    ]
+};
+
+// Start of Specific Diagnoses Map based on InjuryType
+export const DIAGNOSES_BY_TYPE: Record<InjuryType, string[]> = {
+    'Muscular': [
+        'Overload', 'Cramp', 'Distension', 'Rupture Grade I', 'Rupture Grade II', 'Rupture Grade III', 'Contusion'
+    ],
+    'Tendinous': [
+        'Tendinosis', 'Tendinitis', 'Rupture', 'Tenosynovitis'
+    ],
+    'Ligamentous': [
+        'Sprain Grade I', 'Sprain Grade II', 'Sprain Grade III', 'Complete Rupture'
+    ],
+    'Osseous': [
+        'Fracture', 'Stress Fracture', 'Bone Edema', 'Periostitis', 'Fissure'
+    ],
+    'Articular': [
+        'Dislocation', 'Subluxation', 'Chondromalacia', 'Arthritis', 'Synovitis'
+    ],
+    'Meniscus': [
+        'Tear (Radial)', 'Tear (Bucket Handle)', 'Degeneration', 'Cyst'
+    ],
+    'Cartilage': [
+        'Chondral Defect', 'Osteochondritis', 'Softening'
+    ],
+    'Concussion': [
+        'Grade I', 'Grade II', 'Grade III'
+    ],
+    'Hematoma / Bruise': [
+        'Superficial', 'Deep / Intermuscular'
+    ],
+    'Common disease': [
+        'Flu', 'Gastroenteritis', 'Cold', 'Fever', 'Allergy', 'Infection'
+    ]
 };

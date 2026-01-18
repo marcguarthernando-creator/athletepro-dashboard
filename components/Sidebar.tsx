@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -10,12 +11,16 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  // ... (keep existing variables)
-  const userEmail = localStorage.getItem('userEmail');
-  const isDoctor = userEmail === 'medico@cbc.com';
-  const isFisio = userEmail === 'fisio@cbc.com';
-  const isPrepa = userEmail === 'prepa@cbc.com';
-  const isMedicalStaff = isDoctor || isFisio || isPrepa;
+  const { user } = useAuth(); // Use Auth Context
+
+  // Fallback to localStorage for username/image if not in metadata, but use Context for logic
+  const userEmail = user?.email || localStorage.getItem('userEmail');
+
+  const isDoctor = userEmail?.includes('medico') || userEmail?.includes('marcguarthernando');
+  const isFisio = userEmail?.includes('fisio');
+  const isPrepa = userEmail?.includes('prepa');
+  // If none of the above but authenticated as staff, default to Medical for now or check metadata
+  const isMedicalStaff = isDoctor || isFisio || isPrepa || user?.user_metadata?.role === 'medical_staff';
 
   const isActive = (path: string) => location.pathname === path ? "bg-primary/10 text-primary border border-primary/20" : "text-text-secondary hover:bg-surface-dark hover:text-white";
 
@@ -100,10 +105,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                     <Link to="/medical/report" className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors group ${isActive("/medical/report")}`}>
                       <span className="material-symbols-outlined">description</span>
                       <p className="text-sm font-medium leading-normal uppercase">Parte Médico</p>
-                    </Link>
-                    <Link to="/medical/update-data" className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors group ${isActive("/medical/update-data")}`}>
-                      <span className="material-symbols-outlined">edit_square</span>
-                      <p className="text-sm font-medium leading-normal uppercase">Actualizar Datos</p>
                     </Link>
                   </>
                 ) : isFisio ? (

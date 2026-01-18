@@ -1,191 +1,113 @@
 
 import React from 'react';
-import { HashRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import Layout from './components/Layout';
-import Dashboard from './screens/Dashboard';
-import TrainingLoad from './screens/TrainingLoad';
-import SleepAnalysis from './screens/SleepAnalysis';
-import Trends from './screens/Trends';
-import Questionnaire from './screens/Questionnaire';
-import Journal from './screens/Journal';
-import PerformanceProfile from './screens/PerformanceProfile';
-import ExportReport from './screens/ExportReport';
-import Lab from './screens/Lab';
-import AICoach from './screens/AICoach';
-
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Login from './screens/Login';
-import PlayerLayout from './components/layouts/PlayerLayout';
-import PlayerWellness from './screens/player/PlayerWellness';
-import PlayerGym from './screens/player/PlayerGym';
-import PlayerRPE from './screens/player/PlayerRPE';
+import Layout from './components/Layout';
+import PlayerWellness from './screens/player/PlayerWellness'; // Fixed path
+import DailyCheckin from './screens/Questionnaire'; // Mapped to existing file
 import MedicalDashboard from './screens/MedicalDashboard';
-import MedicalStats from './screens/MedicalStats';
-import PlayerMedicalProfile from './screens/PlayerMedicalProfile';
-import PlayerMedicalReport from './screens/PlayerMedicalReport';
-import PlayerCalendar from './screens/player/PlayerCalendar';
-import PlayerPlaybook from './screens/player/PlayerPlaybook';
-import PlayerMedical from './screens/player/PlayerMedical';
 import TeamDashboard from './screens/TeamDashboard';
-import StaffQuestionnaires from './screens/StaffQuestionnaires';
+import PlayerMedicalProfile from './screens/PlayerMedicalProfile';
 import ActiveInjuries from './screens/ActiveInjuries';
-import MedicalForm from './screens/MedicalForm';
-import FisioForm from './screens/FisioForm';
-import GymForm from './screens/GymForm';
-import UpdatePlayerData from './screens/UpdatePlayerData';
-import UserProfileSettings from './screens/UserProfileSettings';
-import PlayerFisioReport from './screens/PlayerFisioReport';
+import StaffQuestionnaires from './screens/StaffQuestionnaires';
+import MedicalStats from './screens/MedicalStats';
+import ExportReport from './screens/ExportReport';
+
+// Placeholders for missing dashboards
+const FisioDashboard = TeamDashboard;
+const PrepaDashboard = TeamDashboard;
 
 const ProtectedRoute = ({ children }: { children: React.ReactElement }) => {
-  const isAuth = localStorage.getItem('isAuthenticated') === 'true';
-  const userEmail = localStorage.getItem('userEmail');
-  const location = useLocation();
+  const { session, loading } = useAuth();
 
-  if (!isAuth) return <Navigate to="/login" replace />;
-
-  const isPlayer = userEmail === 'jugador@cbc.com' || userEmail === 'jugadores@cbc.com';
-
-  if (isPlayer && !location.pathname.startsWith('/player')) {
-    return <Navigate to="/player/wellness" replace />;
+  if (loading) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-background-dark text-primary font-display animate-pulse">
+        CARGANDO SISTEMA DE ALTO RENDIMIENTO...
+      </div>
+    );
   }
 
-  if (userEmail === 'medico@cbc.com' && !location.pathname.startsWith('/medical')) {
-    return <Navigate to="/medical" replace />;
-  }
-
-  if (userEmail === 'fisio@cbc.com' && !location.pathname.startsWith('/fisio')) {
-    return <Navigate to="/fisio" replace />;
-  }
-
-  if (userEmail === 'prepa@cbc.com' && !location.pathname.startsWith('/prepa')) {
-    return <Navigate to="/prepa" replace />;
-  }
+  if (!session) return <Navigate to="/login" replace />;
 
   return children;
 };
 
 const App: React.FC = () => {
   return (
-    <HashRouter>
-      <Routes>
-        <Route path="/login" element={<Login />} />
+    <AuthProvider>
+      <HashRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
 
-        {/* Player Routes */}
-        <Route
-          path="/player/*"
-          element={
+          {/* Medical / Doctor Routes */}
+          <Route path="/medical/*" element={
             <ProtectedRoute>
-              <PlayerLayout>
+              <Layout>
                 <Routes>
-                  <Route path="calendar" element={<PlayerCalendar />} />
-                  <Route path="playbook" element={<PlayerPlaybook />} />
-                  <Route path="medical" element={<PlayerMedical />} />
+                  <Route path="dashboard" element={<TeamDashboard />} /> {/* Stats & Calendar */}
+                  <Route path="team" element={<TeamDashboard />} />
+                  <Route path="players" element={<MedicalDashboard />} /> {/* Player Grid */}
+                  <Route path="player/:id" element={<PlayerMedicalProfile />} />
+                  <Route path="players/:id" element={<PlayerMedicalProfile />} />
+                  <Route path="injuries" element={<ActiveInjuries />} />
+                  <Route path="active-injuries" element={<ActiveInjuries />} />
+                  <Route path="daily-forms" element={<StaffQuestionnaires />} />
+                  <Route path="stats" element={<MedicalStats />} />
+                  <Route path="report" element={<ExportReport />} />
+                  <Route path="*" element={<div className="p-10 text-white">404 - Medical Page Not Found</div>} />
+                </Routes>
+              </Layout>
+            </ProtectedRoute>
+          } />
+
+          {/* Player Routes */}
+          <Route path="/player/*" element={
+            <ProtectedRoute>
+              <Layout>
+                <Routes>
                   <Route path="wellness" element={<PlayerWellness />} />
-                  <Route path="gym" element={<PlayerGym />} />
-                  <Route path="rpe" element={<PlayerRPE />} />
-                  <Route path="*" element={<Navigate to="wellness" replace />} />
-                </Routes>
-              </PlayerLayout>
-            </ProtectedRoute>
-          }
-        />
-
-        {/* Doctor Routes */}
-        <Route
-          path="/medical/*"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                <Routes>
-                  <Route path="/" element={<Navigate to="/medical/dashboard" replace />} />
-                  <Route path="/players" element={<MedicalDashboard />} />
-                  <Route path="/players/:id" element={<PlayerMedicalProfile />} />
-                  <Route path="/dashboard" element={<TeamDashboard />} />
-                  <Route path="/daily-forms" element={<StaffQuestionnaires />} />
-                  <Route path="/active-injuries" element={<ActiveInjuries />} />
-                  <Route path="/stats" element={<MedicalStats />} />
-                  <Route path="/report/:id" element={<PlayerMedicalReport />} />
-                  <Route path="/report" element={<MedicalForm />} />
-                  <Route path="/update-data" element={<UpdatePlayerData />} />
-                  <Route path="/profile-settings" element={<UserProfileSettings />} />
-                  <Route path="*" element={<Navigate to="/medical/dashboard" replace />} />
+                  <Route path="checkin" element={<DailyCheckin />} />
+                  <Route path="*" element={<div className="p-10 text-white">404 - Player Page Not Found</div>} />
                 </Routes>
               </Layout>
             </ProtectedRoute>
-          }
-        />
+          } />
 
-        {/* Fisio Routes */}
-        <Route
-          path="/fisio/*"
-          element={
+          {/* Fisio Routes - specific dashboard or reuse Medical/Team */}
+          <Route path="/fisio/*" element={
             <ProtectedRoute>
               <Layout>
                 <Routes>
-                  <Route path="/" element={<Navigate to="/fisio/dashboard" replace />} />
-                  <Route path="/players" element={<MedicalDashboard />} />
-                  <Route path="/players/:id" element={<PlayerMedicalProfile />} />
-                  <Route path="/dashboard" element={<TeamDashboard />} />
-                  <Route path="/daily-forms" element={<StaffQuestionnaires />} />
-                  <Route path="/active-injuries" element={<ActiveInjuries />} />
-                  <Route path="/stats" element={<MedicalStats />} />
-                  <Route path="/report/:id" element={<PlayerFisioReport />} />
-                  <Route path="/report" element={<FisioForm />} />
-                  <Route path="/profile-settings" element={<UserProfileSettings />} />
-                  <Route path="*" element={<Navigate to="/fisio/dashboard" replace />} />
+                  <Route path="dashboard" element={<TeamDashboard />} />
+                  <Route path="players" element={<TeamDashboard />} />
+                  <Route path="active-injuries" element={<ActiveInjuries />} />
+                  <Route path="daily-forms" element={<StaffQuestionnaires />} />
+                  <Route path="stats" element={<MedicalStats />} />
+                  <Route path="*" element={<div className="p-10 text-white">404 - Fisio Page Not Found</div>} />
                 </Routes>
               </Layout>
             </ProtectedRoute>
-          }
-        />
+          } />
 
-        {/* Prepa Routes */}
-        <Route
-          path="/prepa/*"
-          element={
+          {/* Prepa Routes */}
+          <Route path="/prepa/*" element={
             <ProtectedRoute>
               <Layout>
                 <Routes>
-                  <Route path="/" element={<Navigate to="/prepa/dashboard" replace />} />
-                  <Route path="/players" element={<MedicalDashboard />} />
-                  <Route path="/players/:id" element={<PlayerMedicalProfile />} />
-                  <Route path="/dashboard" element={<TeamDashboard />} />
-                  <Route path="/daily-forms" element={<StaffQuestionnaires />} />
-                  <Route path="/active-injuries" element={<ActiveInjuries />} />
-                  <Route path="/stats" element={<MedicalStats />} />
-                  <Route path="/gym" element={<GymForm />} />
-                  <Route path="/profile-settings" element={<UserProfileSettings />} />
-                  <Route path="*" element={<Navigate to="/prepa/dashboard" replace />} />
+                  <Route path="dashboard" element={<PrepaDashboard />} />
+                  <Route path="*" element={<div className="p-10 text-white">404 - Prepa Page Not Found</div>} />
                 </Routes>
               </Layout>
             </ProtectedRoute>
-          }
-        />
+          } />
 
-        {/* Admin/Staff Routes */}
-        <Route
-          path="/*"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                <Routes>
-                  <Route path="/" element={<Dashboard />} />
-                  <Route path="/load" element={<TrainingLoad />} />
-                  <Route path="/sleep" element={<SleepAnalysis />} />
-                  <Route path="/trends" element={<Trends />} />
-                  <Route path="/questionnaire" element={<Questionnaire />} />
-                  <Route path="/journal" element={<Journal />} />
-                  <Route path="/performance" element={<PerformanceProfile />} />
-                  <Route path="/export" element={<ExportReport />} />
-                  <Route path="/lab" element={<Lab />} />
-                  <Route path="/coach" element={<AICoach />} />
-                  <Route path="*" element={<Navigate to="/" replace />} />
-                </Routes>
-              </Layout>
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </HashRouter>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="*" element={<div className="p-10 text-white bg-red-900">404 - GLOBAL ROUTE NOT FOUND</div>} />
+        </Routes>
+      </HashRouter>
+    </AuthProvider>
   );
 };
 

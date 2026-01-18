@@ -62,6 +62,208 @@ export const playerMedicalData: Record<string, any> = {
       "personalHistory": [
         "Operado de apéndice"
       ]
+    },
+    "rom": {
+      "lower": {
+        "Tobillo Flexión Dorsal": {
+          "l": "42°",
+          "r": "44°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "40° | 41°"
+            }
+          ]
+        },
+        "Cadera Flexión": {
+          "l": "115°",
+          "r": "112°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "110° | 108°"
+            }
+          ]
+        },
+        "Knee Extension": {
+          "l": "0°",
+          "r": "0°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "0° | -2°"
+            }
+          ]
+        }
+      },
+      "upper": {
+        "Hombro Flexión": {
+          "l": "175°",
+          "r": "178°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "170° | 172°"
+            }
+          ]
+        },
+        "Hombro Rot. Interna": {
+          "l": "65°",
+          "r": "62°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "60° | 58°"
+            }
+          ]
+        }
+      }
+    },
+    "evaluation": {
+      "UPPER BODY": {
+        "score": "8.5",
+        "desc": "Sin asimetrías detectadas. Excelente estabilidad.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.2"
+          }
+        ]
+      },
+      "SPINAL COLUMN": {
+        "score": "7.8",
+        "desc": "Control motor adecuado en movimientos dinámicos.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.5"
+          }
+        ]
+      },
+      "LOWER BODY": {
+        "score": "9.0",
+        "desc": "Potencia explosiva en rango óptimo.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.5"
+          }
+        ]
+      },
+      "ABS / CORE": {
+        "score": "8.0",
+        "desc": "Estabilidad central sólida en anti-rotación.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.8"
+          }
+        ]
+      }
+    },
+    "physicalTests": {
+      "jump": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "value": "42"
+          },
+          {
+            "date": "01 DIC",
+            "value": "40"
+          },
+          {
+            "date": "15 NOV",
+            "value": "43"
+          },
+          {
+            "date": "01 NOV",
+            "value": "41"
+          }
+        ],
+        "comments": "Mejora constante en la potencia reactiva."
+      },
+      "hopTest": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "lVal": "185",
+            "rVal": "182",
+            "asymmetry": "1.6%"
+          },
+          {
+            "date": "01 DIC",
+            "lVal": "180",
+            "rVal": "178",
+            "asymmetry": "1.1%"
+          }
+        ],
+        "comments": "Asimetría dentro de los rangos de normalidad (<5%)."
+      },
+      "strengthPeaks": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "isometric": "450",
+            "eccentric": "510"
+          },
+          {
+            "date": "01 DIC",
+            "isometric": "435",
+            "eccentric": "495"
+          }
+        ],
+        "comments": "Pico de fuerza isométrica en niveles óptimos."
+      },
+      "custom": [
+        {
+          "name": "Grip Strength",
+          "value": "65",
+          "unit": "kg",
+          "date": "15 DIC"
+        }
+      ]
+    },
+    "extra": {
+      "aiReports": [
+        {
+          "title": "Análisis de Recuperación Semanal",
+          "date": "15 Dic 2025",
+          "type": "Weekly"
+        },
+        {
+          "title": "Predicción de Riesgo de Lesión",
+          "date": "01 Dic 2025",
+          "type": "Risk"
+        }
+      ],
+      "questionnaires": [
+        {
+          "date": "20 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "85/100",
+          "status": "Completo"
+        },
+        {
+          "date": "19 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "82/100",
+          "status": "Completo"
+        },
+        {
+          "date": "18 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "88/100",
+          "status": "Completo"
+        }
+      ]
+    },
+    "extraTests": {
+      "selected": [
+        "ECOGRAFÍA",
+        "RESONANCIA MAGNÉTICA (RMN)"
+      ],
+      "comment": "Resultados pendientes de revisión por el especialista. El jugador presenta molestias leves en la zona."
     }
   },
   "BABEL LIPASI": {
@@ -127,6 +329,208 @@ export const playerMedicalData: Record<string, any> = {
       "personalHistory": [
         "Operado de apéndice"
       ]
+    },
+    "rom": {
+      "lower": {
+        "Tobillo Flexión Dorsal": {
+          "l": "42°",
+          "r": "44°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "40° | 41°"
+            }
+          ]
+        },
+        "Cadera Flexión": {
+          "l": "115°",
+          "r": "112°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "110° | 108°"
+            }
+          ]
+        },
+        "Knee Extension": {
+          "l": "0°",
+          "r": "0°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "0° | -2°"
+            }
+          ]
+        }
+      },
+      "upper": {
+        "Hombro Flexión": {
+          "l": "175°",
+          "r": "178°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "170° | 172°"
+            }
+          ]
+        },
+        "Hombro Rot. Interna": {
+          "l": "65°",
+          "r": "62°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "60° | 58°"
+            }
+          ]
+        }
+      }
+    },
+    "evaluation": {
+      "UPPER BODY": {
+        "score": "8.5",
+        "desc": "Sin asimetrías detectadas. Excelente estabilidad.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.2"
+          }
+        ]
+      },
+      "SPINAL COLUMN": {
+        "score": "7.8",
+        "desc": "Control motor adecuado en movimientos dinámicos.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.5"
+          }
+        ]
+      },
+      "LOWER BODY": {
+        "score": "9.0",
+        "desc": "Potencia explosiva en rango óptimo.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.5"
+          }
+        ]
+      },
+      "ABS / CORE": {
+        "score": "8.0",
+        "desc": "Estabilidad central sólida en anti-rotación.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.8"
+          }
+        ]
+      }
+    },
+    "physicalTests": {
+      "jump": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "value": "42"
+          },
+          {
+            "date": "01 DIC",
+            "value": "40"
+          },
+          {
+            "date": "15 NOV",
+            "value": "43"
+          },
+          {
+            "date": "01 NOV",
+            "value": "41"
+          }
+        ],
+        "comments": "Mejora constante en la potencia reactiva."
+      },
+      "hopTest": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "lVal": "185",
+            "rVal": "182",
+            "asymmetry": "1.6%"
+          },
+          {
+            "date": "01 DIC",
+            "lVal": "180",
+            "rVal": "178",
+            "asymmetry": "1.1%"
+          }
+        ],
+        "comments": "Asimetría dentro de los rangos de normalidad (<5%)."
+      },
+      "strengthPeaks": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "isometric": "450",
+            "eccentric": "510"
+          },
+          {
+            "date": "01 DIC",
+            "isometric": "435",
+            "eccentric": "495"
+          }
+        ],
+        "comments": "Pico de fuerza isométrica en niveles óptimos."
+      },
+      "custom": [
+        {
+          "name": "Grip Strength",
+          "value": "65",
+          "unit": "kg",
+          "date": "15 DIC"
+        }
+      ]
+    },
+    "extra": {
+      "aiReports": [
+        {
+          "title": "Análisis de Recuperación Semanal",
+          "date": "15 Dic 2025",
+          "type": "Weekly"
+        },
+        {
+          "title": "Predicción de Riesgo de Lesión",
+          "date": "01 Dic 2025",
+          "type": "Risk"
+        }
+      ],
+      "questionnaires": [
+        {
+          "date": "20 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "85/100",
+          "status": "Completo"
+        },
+        {
+          "date": "19 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "82/100",
+          "status": "Completo"
+        },
+        {
+          "date": "18 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "88/100",
+          "status": "Completo"
+        }
+      ]
+    },
+    "extraTests": {
+      "selected": [
+        "ECOGRAFÍA",
+        "RESONANCIA MAGNÉTICA (RMN)"
+      ],
+      "comment": "Resultados pendientes de revisión por el especialista. El jugador presenta molestias leves en la zona."
     }
   },
   "DAVID ACOSTA": {
@@ -192,6 +596,208 @@ export const playerMedicalData: Record<string, any> = {
       "personalHistory": [
         "Operado de apéndice"
       ]
+    },
+    "rom": {
+      "lower": {
+        "Tobillo Flexión Dorsal": {
+          "l": "42°",
+          "r": "44°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "40° | 41°"
+            }
+          ]
+        },
+        "Cadera Flexión": {
+          "l": "115°",
+          "r": "112°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "110° | 108°"
+            }
+          ]
+        },
+        "Knee Extension": {
+          "l": "0°",
+          "r": "0°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "0° | -2°"
+            }
+          ]
+        }
+      },
+      "upper": {
+        "Hombro Flexión": {
+          "l": "175°",
+          "r": "178°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "170° | 172°"
+            }
+          ]
+        },
+        "Hombro Rot. Interna": {
+          "l": "65°",
+          "r": "62°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "60° | 58°"
+            }
+          ]
+        }
+      }
+    },
+    "evaluation": {
+      "UPPER BODY": {
+        "score": "8.5",
+        "desc": "Sin asimetrías detectadas. Excelente estabilidad.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.2"
+          }
+        ]
+      },
+      "SPINAL COLUMN": {
+        "score": "7.8",
+        "desc": "Control motor adecuado en movimientos dinámicos.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.5"
+          }
+        ]
+      },
+      "LOWER BODY": {
+        "score": "9.0",
+        "desc": "Potencia explosiva en rango óptimo.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.5"
+          }
+        ]
+      },
+      "ABS / CORE": {
+        "score": "8.0",
+        "desc": "Estabilidad central sólida en anti-rotación.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.8"
+          }
+        ]
+      }
+    },
+    "physicalTests": {
+      "jump": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "value": "42"
+          },
+          {
+            "date": "01 DIC",
+            "value": "40"
+          },
+          {
+            "date": "15 NOV",
+            "value": "43"
+          },
+          {
+            "date": "01 NOV",
+            "value": "41"
+          }
+        ],
+        "comments": "Mejora constante en la potencia reactiva."
+      },
+      "hopTest": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "lVal": "185",
+            "rVal": "182",
+            "asymmetry": "1.6%"
+          },
+          {
+            "date": "01 DIC",
+            "lVal": "180",
+            "rVal": "178",
+            "asymmetry": "1.1%"
+          }
+        ],
+        "comments": "Asimetría dentro de los rangos de normalidad (<5%)."
+      },
+      "strengthPeaks": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "isometric": "450",
+            "eccentric": "510"
+          },
+          {
+            "date": "01 DIC",
+            "isometric": "435",
+            "eccentric": "495"
+          }
+        ],
+        "comments": "Pico de fuerza isométrica en niveles óptimos."
+      },
+      "custom": [
+        {
+          "name": "Grip Strength",
+          "value": "65",
+          "unit": "kg",
+          "date": "15 DIC"
+        }
+      ]
+    },
+    "extra": {
+      "aiReports": [
+        {
+          "title": "Análisis de Recuperación Semanal",
+          "date": "15 Dic 2025",
+          "type": "Weekly"
+        },
+        {
+          "title": "Predicción de Riesgo de Lesión",
+          "date": "01 Dic 2025",
+          "type": "Risk"
+        }
+      ],
+      "questionnaires": [
+        {
+          "date": "20 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "85/100",
+          "status": "Completo"
+        },
+        {
+          "date": "19 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "82/100",
+          "status": "Completo"
+        },
+        {
+          "date": "18 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "88/100",
+          "status": "Completo"
+        }
+      ]
+    },
+    "extraTests": {
+      "selected": [
+        "ECOGRAFÍA",
+        "RESONANCIA MAGNÉTICA (RMN)"
+      ],
+      "comment": "Resultados pendientes de revisión por el especialista. El jugador presenta molestias leves en la zona."
     }
   },
   "DAVID DELGADO": {
@@ -257,6 +863,208 @@ export const playerMedicalData: Record<string, any> = {
       "personalHistory": [
         "Operado de apéndice"
       ]
+    },
+    "rom": {
+      "lower": {
+        "Tobillo Flexión Dorsal": {
+          "l": "42°",
+          "r": "44°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "40° | 41°"
+            }
+          ]
+        },
+        "Cadera Flexión": {
+          "l": "115°",
+          "r": "112°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "110° | 108°"
+            }
+          ]
+        },
+        "Knee Extension": {
+          "l": "0°",
+          "r": "0°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "0° | -2°"
+            }
+          ]
+        }
+      },
+      "upper": {
+        "Hombro Flexión": {
+          "l": "175°",
+          "r": "178°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "170° | 172°"
+            }
+          ]
+        },
+        "Hombro Rot. Interna": {
+          "l": "65°",
+          "r": "62°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "60° | 58°"
+            }
+          ]
+        }
+      }
+    },
+    "evaluation": {
+      "UPPER BODY": {
+        "score": "8.5",
+        "desc": "Sin asimetrías detectadas. Excelente estabilidad.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.2"
+          }
+        ]
+      },
+      "SPINAL COLUMN": {
+        "score": "7.8",
+        "desc": "Control motor adecuado en movimientos dinámicos.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.5"
+          }
+        ]
+      },
+      "LOWER BODY": {
+        "score": "9.0",
+        "desc": "Potencia explosiva en rango óptimo.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.5"
+          }
+        ]
+      },
+      "ABS / CORE": {
+        "score": "8.0",
+        "desc": "Estabilidad central sólida en anti-rotación.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.8"
+          }
+        ]
+      }
+    },
+    "physicalTests": {
+      "jump": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "value": "42"
+          },
+          {
+            "date": "01 DIC",
+            "value": "40"
+          },
+          {
+            "date": "15 NOV",
+            "value": "43"
+          },
+          {
+            "date": "01 NOV",
+            "value": "41"
+          }
+        ],
+        "comments": "Mejora constante en la potencia reactiva."
+      },
+      "hopTest": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "lVal": "185",
+            "rVal": "182",
+            "asymmetry": "1.6%"
+          },
+          {
+            "date": "01 DIC",
+            "lVal": "180",
+            "rVal": "178",
+            "asymmetry": "1.1%"
+          }
+        ],
+        "comments": "Asimetría dentro de los rangos de normalidad (<5%)."
+      },
+      "strengthPeaks": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "isometric": "450",
+            "eccentric": "510"
+          },
+          {
+            "date": "01 DIC",
+            "isometric": "435",
+            "eccentric": "495"
+          }
+        ],
+        "comments": "Pico de fuerza isométrica en niveles óptimos."
+      },
+      "custom": [
+        {
+          "name": "Grip Strength",
+          "value": "65",
+          "unit": "kg",
+          "date": "15 DIC"
+        }
+      ]
+    },
+    "extra": {
+      "aiReports": [
+        {
+          "title": "Análisis de Recuperación Semanal",
+          "date": "15 Dic 2025",
+          "type": "Weekly"
+        },
+        {
+          "title": "Predicción de Riesgo de Lesión",
+          "date": "01 Dic 2025",
+          "type": "Risk"
+        }
+      ],
+      "questionnaires": [
+        {
+          "date": "20 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "85/100",
+          "status": "Completo"
+        },
+        {
+          "date": "19 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "82/100",
+          "status": "Completo"
+        },
+        {
+          "date": "18 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "88/100",
+          "status": "Completo"
+        }
+      ]
+    },
+    "extraTests": {
+      "selected": [
+        "ECOGRAFÍA",
+        "RESONANCIA MAGNÉTICA (RMN)"
+      ],
+      "comment": "Resultados pendientes de revisión por el especialista. El jugador presenta molestias leves en la zona."
     }
   },
   "DIEGO FERNANDEZ": {
@@ -322,6 +1130,208 @@ export const playerMedicalData: Record<string, any> = {
       "personalHistory": [
         "Operado de apéndice"
       ]
+    },
+    "rom": {
+      "lower": {
+        "Tobillo Flexión Dorsal": {
+          "l": "42°",
+          "r": "44°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "40° | 41°"
+            }
+          ]
+        },
+        "Cadera Flexión": {
+          "l": "115°",
+          "r": "112°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "110° | 108°"
+            }
+          ]
+        },
+        "Knee Extension": {
+          "l": "0°",
+          "r": "0°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "0° | -2°"
+            }
+          ]
+        }
+      },
+      "upper": {
+        "Hombro Flexión": {
+          "l": "175°",
+          "r": "178°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "170° | 172°"
+            }
+          ]
+        },
+        "Hombro Rot. Interna": {
+          "l": "65°",
+          "r": "62°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "60° | 58°"
+            }
+          ]
+        }
+      }
+    },
+    "evaluation": {
+      "UPPER BODY": {
+        "score": "8.5",
+        "desc": "Sin asimetrías detectadas. Excelente estabilidad.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.2"
+          }
+        ]
+      },
+      "SPINAL COLUMN": {
+        "score": "7.8",
+        "desc": "Control motor adecuado en movimientos dinámicos.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.5"
+          }
+        ]
+      },
+      "LOWER BODY": {
+        "score": "9.0",
+        "desc": "Potencia explosiva en rango óptimo.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.5"
+          }
+        ]
+      },
+      "ABS / CORE": {
+        "score": "8.0",
+        "desc": "Estabilidad central sólida en anti-rotación.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.8"
+          }
+        ]
+      }
+    },
+    "physicalTests": {
+      "jump": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "value": "42"
+          },
+          {
+            "date": "01 DIC",
+            "value": "40"
+          },
+          {
+            "date": "15 NOV",
+            "value": "43"
+          },
+          {
+            "date": "01 NOV",
+            "value": "41"
+          }
+        ],
+        "comments": "Mejora constante en la potencia reactiva."
+      },
+      "hopTest": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "lVal": "185",
+            "rVal": "182",
+            "asymmetry": "1.6%"
+          },
+          {
+            "date": "01 DIC",
+            "lVal": "180",
+            "rVal": "178",
+            "asymmetry": "1.1%"
+          }
+        ],
+        "comments": "Asimetría dentro de los rangos de normalidad (<5%)."
+      },
+      "strengthPeaks": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "isometric": "450",
+            "eccentric": "510"
+          },
+          {
+            "date": "01 DIC",
+            "isometric": "435",
+            "eccentric": "495"
+          }
+        ],
+        "comments": "Pico de fuerza isométrica en niveles óptimos."
+      },
+      "custom": [
+        {
+          "name": "Grip Strength",
+          "value": "65",
+          "unit": "kg",
+          "date": "15 DIC"
+        }
+      ]
+    },
+    "extra": {
+      "aiReports": [
+        {
+          "title": "Análisis de Recuperación Semanal",
+          "date": "15 Dic 2025",
+          "type": "Weekly"
+        },
+        {
+          "title": "Predicción de Riesgo de Lesión",
+          "date": "01 Dic 2025",
+          "type": "Risk"
+        }
+      ],
+      "questionnaires": [
+        {
+          "date": "20 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "85/100",
+          "status": "Completo"
+        },
+        {
+          "date": "19 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "82/100",
+          "status": "Completo"
+        },
+        {
+          "date": "18 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "88/100",
+          "status": "Completo"
+        }
+      ]
+    },
+    "extraTests": {
+      "selected": [
+        "ECOGRAFÍA",
+        "RESONANCIA MAGNÉTICA (RMN)"
+      ],
+      "comment": "Resultados pendientes de revisión por el especialista. El jugador presenta molestias leves en la zona."
     }
   },
   "DYLAN BORDON": {
@@ -387,10 +1397,212 @@ export const playerMedicalData: Record<string, any> = {
       "personalHistory": [
         "Operado de apéndice"
       ]
+    },
+    "rom": {
+      "lower": {
+        "Tobillo Flexión Dorsal": {
+          "l": "42°",
+          "r": "44°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "40° | 41°"
+            }
+          ]
+        },
+        "Cadera Flexión": {
+          "l": "115°",
+          "r": "112°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "110° | 108°"
+            }
+          ]
+        },
+        "Knee Extension": {
+          "l": "0°",
+          "r": "0°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "0° | -2°"
+            }
+          ]
+        }
+      },
+      "upper": {
+        "Hombro Flexión": {
+          "l": "175°",
+          "r": "178°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "170° | 172°"
+            }
+          ]
+        },
+        "Hombro Rot. Interna": {
+          "l": "65°",
+          "r": "62°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "60° | 58°"
+            }
+          ]
+        }
+      }
+    },
+    "evaluation": {
+      "UPPER BODY": {
+        "score": "8.5",
+        "desc": "Sin asimetrías detectadas. Excelente estabilidad.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.2"
+          }
+        ]
+      },
+      "SPINAL COLUMN": {
+        "score": "7.8",
+        "desc": "Control motor adecuado en movimientos dinámicos.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.5"
+          }
+        ]
+      },
+      "LOWER BODY": {
+        "score": "9.0",
+        "desc": "Potencia explosiva en rango óptimo.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.5"
+          }
+        ]
+      },
+      "ABS / CORE": {
+        "score": "8.0",
+        "desc": "Estabilidad central sólida en anti-rotación.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.8"
+          }
+        ]
+      }
+    },
+    "physicalTests": {
+      "jump": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "value": "42"
+          },
+          {
+            "date": "01 DIC",
+            "value": "40"
+          },
+          {
+            "date": "15 NOV",
+            "value": "43"
+          },
+          {
+            "date": "01 NOV",
+            "value": "41"
+          }
+        ],
+        "comments": "Mejora constante en la potencia reactiva."
+      },
+      "hopTest": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "lVal": "185",
+            "rVal": "182",
+            "asymmetry": "1.6%"
+          },
+          {
+            "date": "01 DIC",
+            "lVal": "180",
+            "rVal": "178",
+            "asymmetry": "1.1%"
+          }
+        ],
+        "comments": "Asimetría dentro de los rangos de normalidad (<5%)."
+      },
+      "strengthPeaks": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "isometric": "450",
+            "eccentric": "510"
+          },
+          {
+            "date": "01 DIC",
+            "isometric": "435",
+            "eccentric": "495"
+          }
+        ],
+        "comments": "Pico de fuerza isométrica en niveles óptimos."
+      },
+      "custom": [
+        {
+          "name": "Grip Strength",
+          "value": "65",
+          "unit": "kg",
+          "date": "15 DIC"
+        }
+      ]
+    },
+    "extra": {
+      "aiReports": [
+        {
+          "title": "Análisis de Recuperación Semanal",
+          "date": "15 Dic 2025",
+          "type": "Weekly"
+        },
+        {
+          "title": "Predicción de Riesgo de Lesión",
+          "date": "01 Dic 2025",
+          "type": "Risk"
+        }
+      ],
+      "questionnaires": [
+        {
+          "date": "20 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "85/100",
+          "status": "Completo"
+        },
+        {
+          "date": "19 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "82/100",
+          "status": "Completo"
+        },
+        {
+          "date": "18 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "88/100",
+          "status": "Completo"
+        }
+      ]
+    },
+    "extraTests": {
+      "selected": [
+        "ECOGRAFÍA",
+        "RESONANCIA MAGNÉTICA (RMN)"
+      ],
+      "comment": "Resultados pendientes de revisión por el especialista. El jugador presenta molestias leves en la zona."
     }
   },
-  "LUCAS VÁZQUEZ": {
-    "name": "LUCAS VÁZQUEZ",
+  "EMILIS PREKIVICIUS": {
+    "name": "EMILIS PREKIVICIUS",
     "biometrics": {
       "weight": "92.1",
       "height": "212.8",
@@ -452,6 +1664,208 @@ export const playerMedicalData: Record<string, any> = {
       "personalHistory": [
         "Operado de apéndice"
       ]
+    },
+    "rom": {
+      "lower": {
+        "Tobillo Flexión Dorsal": {
+          "l": "42°",
+          "r": "44°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "40° | 41°"
+            }
+          ]
+        },
+        "Cadera Flexión": {
+          "l": "115°",
+          "r": "112°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "110° | 108°"
+            }
+          ]
+        },
+        "Knee Extension": {
+          "l": "0°",
+          "r": "0°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "0° | -2°"
+            }
+          ]
+        }
+      },
+      "upper": {
+        "Hombro Flexión": {
+          "l": "175°",
+          "r": "178°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "170° | 172°"
+            }
+          ]
+        },
+        "Hombro Rot. Interna": {
+          "l": "65°",
+          "r": "62°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "60° | 58°"
+            }
+          ]
+        }
+      }
+    },
+    "evaluation": {
+      "UPPER BODY": {
+        "score": "8.5",
+        "desc": "Sin asimetrías detectadas. Excelente estabilidad.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.2"
+          }
+        ]
+      },
+      "SPINAL COLUMN": {
+        "score": "7.8",
+        "desc": "Control motor adecuado en movimientos dinámicos.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.5"
+          }
+        ]
+      },
+      "LOWER BODY": {
+        "score": "9.0",
+        "desc": "Potencia explosiva en rango óptimo.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.5"
+          }
+        ]
+      },
+      "ABS / CORE": {
+        "score": "8.0",
+        "desc": "Estabilidad central sólida en anti-rotación.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.8"
+          }
+        ]
+      }
+    },
+    "physicalTests": {
+      "jump": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "value": "42"
+          },
+          {
+            "date": "01 DIC",
+            "value": "40"
+          },
+          {
+            "date": "15 NOV",
+            "value": "43"
+          },
+          {
+            "date": "01 NOV",
+            "value": "41"
+          }
+        ],
+        "comments": "Mejora constante en la potencia reactiva."
+      },
+      "hopTest": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "lVal": "185",
+            "rVal": "182",
+            "asymmetry": "1.6%"
+          },
+          {
+            "date": "01 DIC",
+            "lVal": "180",
+            "rVal": "178",
+            "asymmetry": "1.1%"
+          }
+        ],
+        "comments": "Asimetría dentro de los rangos de normalidad (<5%)."
+      },
+      "strengthPeaks": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "isometric": "450",
+            "eccentric": "510"
+          },
+          {
+            "date": "01 DIC",
+            "isometric": "435",
+            "eccentric": "495"
+          }
+        ],
+        "comments": "Pico de fuerza isométrica en niveles óptimos."
+      },
+      "custom": [
+        {
+          "name": "Grip Strength",
+          "value": "65",
+          "unit": "kg",
+          "date": "15 DIC"
+        }
+      ]
+    },
+    "extra": {
+      "aiReports": [
+        {
+          "title": "Análisis de Recuperación Semanal",
+          "date": "15 Dic 2025",
+          "type": "Weekly"
+        },
+        {
+          "title": "Predicción de Riesgo de Lesión",
+          "date": "01 Dic 2025",
+          "type": "Risk"
+        }
+      ],
+      "questionnaires": [
+        {
+          "date": "20 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "85/100",
+          "status": "Completo"
+        },
+        {
+          "date": "19 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "82/100",
+          "status": "Completo"
+        },
+        {
+          "date": "18 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "88/100",
+          "status": "Completo"
+        }
+      ]
+    },
+    "extraTests": {
+      "selected": [
+        "ECOGRAFÍA",
+        "RESONANCIA MAGNÉTICA (RMN)"
+      ],
+      "comment": "Resultados pendientes de revisión por el especialista. El jugador presenta molestias leves en la zona."
     }
   },
   "LOUIS RIGA": {
@@ -517,10 +1931,211 @@ export const playerMedicalData: Record<string, any> = {
       "personalHistory": [
         "Operado de apéndice"
       ]
+    },
+    "rom": {
+      "lower": {
+        "Tobillo Flexión Dorsal": {
+          "l": "42°",
+          "r": "44°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "40° | 41°"
+            }
+          ]
+        },
+        "Cadera Flexión": {
+          "l": "115°",
+          "r": "112°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "110° | 108°"
+            }
+          ]
+        },
+        "Knee Extension": {
+          "l": "0°",
+          "r": "0°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "0° | -2°"
+            }
+          ]
+        }
+      },
+      "upper": {
+        "Hombro Flexión": {
+          "l": "175°",
+          "r": "178°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "170° | 172°"
+            }
+          ]
+        },
+        "Hombro Rot. Interna": {
+          "l": "65°",
+          "r": "62°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "60° | 58°"
+            }
+          ]
+        }
+      }
+    },
+    "evaluation": {
+      "UPPER BODY": {
+        "score": "8.5",
+        "desc": "Sin asimetrías detectadas. Excelente estabilidad.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.2"
+          }
+        ]
+      },
+      "SPINAL COLUMN": {
+        "score": "7.8",
+        "desc": "Control motor adecuado en movimientos dinámicos.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.5"
+          }
+        ]
+      },
+      "LOWER BODY": {
+        "score": "9.0",
+        "desc": "Potencia explosiva en rango óptimo.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.5"
+          }
+        ]
+      },
+      "ABS / CORE": {
+        "score": "8.0",
+        "desc": "Estabilidad central sólida en anti-rotación.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.8"
+          }
+        ]
+      }
+    },
+    "physicalTests": {
+      "jump": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "value": "42"
+          },
+          {
+            "date": "01 DIC",
+            "value": "40"
+          },
+          {
+            "date": "15 NOV",
+            "value": "43"
+          },
+          {
+            "date": "01 NOV",
+            "value": "41"
+          }
+        ],
+        "comments": "Mejora constante en la potencia reactiva."
+      },
+      "hopTest": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "lVal": "185",
+            "rVal": "182",
+            "asymmetry": "1.6%"
+          },
+          {
+            "date": "01 DIC",
+            "lVal": "180",
+            "rVal": "178",
+            "asymmetry": "1.1%"
+          }
+        ],
+        "comments": "Asimetría dentro de los rangos de normalidad (<5%)."
+      },
+      "strengthPeaks": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "isometric": "450",
+            "eccentric": "510"
+          },
+          {
+            "date": "01 DIC",
+            "isometric": "435",
+            "eccentric": "495"
+          }
+        ],
+        "comments": "Pico de fuerza isométrica en niveles óptimos."
+      },
+      "custom": [
+        {
+          "name": "Grip Strength",
+          "value": "65",
+          "unit": "kg",
+          "date": "15 DIC"
+        }
+      ]
+    },
+    "extra": {
+      "aiReports": [
+        {
+          "title": "Análisis de Recuperación Semanal",
+          "date": "15 Dic 2025",
+          "type": "Weekly"
+        },
+        {
+          "title": "Predicción de Riesgo de Lesión",
+          "date": "01 Dic 2025",
+          "type": "Risk"
+        }
+      ],
+      "questionnaires": [
+        {
+          "date": "20 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "85/100",
+          "status": "Completo"
+        },
+        {
+          "date": "19 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "82/100",
+          "status": "Completo"
+        },
+        {
+          "date": "18 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "88/100",
+          "status": "Completo"
+        }
+      ]
+    },
+    "extraTests": {
+      "selected": [
+        "ANALÍTICA SANGUÍNEA"
+      ],
+      "comment": "Resultados pendientes de revisión por el especialista. El jugador presenta molestias leves en la zona."
     }
   },
-  "JORGE GONZÁLEZ": {
-    "name": "JORGE GONZÁLEZ",
+  "MANUEL CRUJEIRAS": {
+    "name": "MANUEL CRUJEIRAS",
     "biometrics": {
       "weight": "104.1",
       "height": "192.5",
@@ -582,6 +2197,207 @@ export const playerMedicalData: Record<string, any> = {
       "personalHistory": [
         "Operado de apéndice"
       ]
+    },
+    "rom": {
+      "lower": {
+        "Tobillo Flexión Dorsal": {
+          "l": "42°",
+          "r": "44°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "40° | 41°"
+            }
+          ]
+        },
+        "Cadera Flexión": {
+          "l": "115°",
+          "r": "112°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "110° | 108°"
+            }
+          ]
+        },
+        "Knee Extension": {
+          "l": "0°",
+          "r": "0°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "0° | -2°"
+            }
+          ]
+        }
+      },
+      "upper": {
+        "Hombro Flexión": {
+          "l": "175°",
+          "r": "178°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "170° | 172°"
+            }
+          ]
+        },
+        "Hombro Rot. Interna": {
+          "l": "65°",
+          "r": "62°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "60° | 58°"
+            }
+          ]
+        }
+      }
+    },
+    "evaluation": {
+      "UPPER BODY": {
+        "score": "8.5",
+        "desc": "Sin asimetrías detectadas. Excelente estabilidad.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.2"
+          }
+        ]
+      },
+      "SPINAL COLUMN": {
+        "score": "7.8",
+        "desc": "Control motor adecuado en movimientos dinámicos.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.5"
+          }
+        ]
+      },
+      "LOWER BODY": {
+        "score": "9.0",
+        "desc": "Potencia explosiva en rango óptimo.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.5"
+          }
+        ]
+      },
+      "ABS / CORE": {
+        "score": "8.0",
+        "desc": "Estabilidad central sólida en anti-rotación.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.8"
+          }
+        ]
+      }
+    },
+    "physicalTests": {
+      "jump": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "value": "42"
+          },
+          {
+            "date": "01 DIC",
+            "value": "40"
+          },
+          {
+            "date": "15 NOV",
+            "value": "43"
+          },
+          {
+            "date": "01 NOV",
+            "value": "41"
+          }
+        ],
+        "comments": "Mejora constante en la potencia reactiva."
+      },
+      "hopTest": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "lVal": "185",
+            "rVal": "182",
+            "asymmetry": "1.6%"
+          },
+          {
+            "date": "01 DIC",
+            "lVal": "180",
+            "rVal": "178",
+            "asymmetry": "1.1%"
+          }
+        ],
+        "comments": "Asimetría dentro de los rangos de normalidad (<5%)."
+      },
+      "strengthPeaks": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "isometric": "450",
+            "eccentric": "510"
+          },
+          {
+            "date": "01 DIC",
+            "isometric": "435",
+            "eccentric": "495"
+          }
+        ],
+        "comments": "Pico de fuerza isométrica en niveles óptimos."
+      },
+      "custom": [
+        {
+          "name": "Grip Strength",
+          "value": "65",
+          "unit": "kg",
+          "date": "15 DIC"
+        }
+      ]
+    },
+    "extra": {
+      "aiReports": [
+        {
+          "title": "Análisis de Recuperación Semanal",
+          "date": "15 Dic 2025",
+          "type": "Weekly"
+        },
+        {
+          "title": "Predicción de Riesgo de Lesión",
+          "date": "01 Dic 2025",
+          "type": "Risk"
+        }
+      ],
+      "questionnaires": [
+        {
+          "date": "20 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "85/100",
+          "status": "Completo"
+        },
+        {
+          "date": "19 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "82/100",
+          "status": "Completo"
+        },
+        {
+          "date": "18 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "88/100",
+          "status": "Completo"
+        }
+      ]
+    },
+    "extraTests": {
+      "selected": [
+        "ANALÍTICA SANGUÍNEA"
+      ],
+      "comment": "Resultados pendientes de revisión por el especialista. El jugador presenta molestias leves en la zona."
     }
   },
   "MOHAMED SANGARE": {
@@ -647,6 +2463,207 @@ export const playerMedicalData: Record<string, any> = {
       "personalHistory": [
         "Operado de apéndice"
       ]
+    },
+    "rom": {
+      "lower": {
+        "Tobillo Flexión Dorsal": {
+          "l": "42°",
+          "r": "44°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "40° | 41°"
+            }
+          ]
+        },
+        "Cadera Flexión": {
+          "l": "115°",
+          "r": "112°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "110° | 108°"
+            }
+          ]
+        },
+        "Knee Extension": {
+          "l": "0°",
+          "r": "0°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "0° | -2°"
+            }
+          ]
+        }
+      },
+      "upper": {
+        "Hombro Flexión": {
+          "l": "175°",
+          "r": "178°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "170° | 172°"
+            }
+          ]
+        },
+        "Hombro Rot. Interna": {
+          "l": "65°",
+          "r": "62°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "60° | 58°"
+            }
+          ]
+        }
+      }
+    },
+    "evaluation": {
+      "UPPER BODY": {
+        "score": "8.5",
+        "desc": "Sin asimetrías detectadas. Excelente estabilidad.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.2"
+          }
+        ]
+      },
+      "SPINAL COLUMN": {
+        "score": "7.8",
+        "desc": "Control motor adecuado en movimientos dinámicos.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.5"
+          }
+        ]
+      },
+      "LOWER BODY": {
+        "score": "9.0",
+        "desc": "Potencia explosiva en rango óptimo.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.5"
+          }
+        ]
+      },
+      "ABS / CORE": {
+        "score": "8.0",
+        "desc": "Estabilidad central sólida en anti-rotación.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.8"
+          }
+        ]
+      }
+    },
+    "physicalTests": {
+      "jump": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "value": "42"
+          },
+          {
+            "date": "01 DIC",
+            "value": "40"
+          },
+          {
+            "date": "15 NOV",
+            "value": "43"
+          },
+          {
+            "date": "01 NOV",
+            "value": "41"
+          }
+        ],
+        "comments": "Mejora constante en la potencia reactiva."
+      },
+      "hopTest": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "lVal": "185",
+            "rVal": "182",
+            "asymmetry": "1.6%"
+          },
+          {
+            "date": "01 DIC",
+            "lVal": "180",
+            "rVal": "178",
+            "asymmetry": "1.1%"
+          }
+        ],
+        "comments": "Asimetría dentro de los rangos de normalidad (<5%)."
+      },
+      "strengthPeaks": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "isometric": "450",
+            "eccentric": "510"
+          },
+          {
+            "date": "01 DIC",
+            "isometric": "435",
+            "eccentric": "495"
+          }
+        ],
+        "comments": "Pico de fuerza isométrica en niveles óptimos."
+      },
+      "custom": [
+        {
+          "name": "Grip Strength",
+          "value": "65",
+          "unit": "kg",
+          "date": "15 DIC"
+        }
+      ]
+    },
+    "extra": {
+      "aiReports": [
+        {
+          "title": "Análisis de Recuperación Semanal",
+          "date": "15 Dic 2025",
+          "type": "Weekly"
+        },
+        {
+          "title": "Predicción de Riesgo de Lesión",
+          "date": "01 Dic 2025",
+          "type": "Risk"
+        }
+      ],
+      "questionnaires": [
+        {
+          "date": "20 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "85/100",
+          "status": "Completo"
+        },
+        {
+          "date": "19 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "82/100",
+          "status": "Completo"
+        },
+        {
+          "date": "18 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "88/100",
+          "status": "Completo"
+        }
+      ]
+    },
+    "extraTests": {
+      "selected": [
+        "ANALÍTICA SANGUÍNEA"
+      ],
+      "comment": "Resultados pendientes de revisión por el especialista. El jugador presenta molestias leves en la zona."
     }
   },
   "RAFA RODRIGUEZ": {
@@ -712,6 +2729,207 @@ export const playerMedicalData: Record<string, any> = {
       "personalHistory": [
         "Operado de apéndice"
       ]
+    },
+    "rom": {
+      "lower": {
+        "Tobillo Flexión Dorsal": {
+          "l": "42°",
+          "r": "44°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "40° | 41°"
+            }
+          ]
+        },
+        "Cadera Flexión": {
+          "l": "115°",
+          "r": "112°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "110° | 108°"
+            }
+          ]
+        },
+        "Knee Extension": {
+          "l": "0°",
+          "r": "0°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "0° | -2°"
+            }
+          ]
+        }
+      },
+      "upper": {
+        "Hombro Flexión": {
+          "l": "175°",
+          "r": "178°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "170° | 172°"
+            }
+          ]
+        },
+        "Hombro Rot. Interna": {
+          "l": "65°",
+          "r": "62°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "60° | 58°"
+            }
+          ]
+        }
+      }
+    },
+    "evaluation": {
+      "UPPER BODY": {
+        "score": "8.5",
+        "desc": "Sin asimetrías detectadas. Excelente estabilidad.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.2"
+          }
+        ]
+      },
+      "SPINAL COLUMN": {
+        "score": "7.8",
+        "desc": "Control motor adecuado en movimientos dinámicos.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.5"
+          }
+        ]
+      },
+      "LOWER BODY": {
+        "score": "9.0",
+        "desc": "Potencia explosiva en rango óptimo.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.5"
+          }
+        ]
+      },
+      "ABS / CORE": {
+        "score": "8.0",
+        "desc": "Estabilidad central sólida en anti-rotación.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.8"
+          }
+        ]
+      }
+    },
+    "physicalTests": {
+      "jump": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "value": "42"
+          },
+          {
+            "date": "01 DIC",
+            "value": "40"
+          },
+          {
+            "date": "15 NOV",
+            "value": "43"
+          },
+          {
+            "date": "01 NOV",
+            "value": "41"
+          }
+        ],
+        "comments": "Mejora constante en la potencia reactiva."
+      },
+      "hopTest": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "lVal": "185",
+            "rVal": "182",
+            "asymmetry": "1.6%"
+          },
+          {
+            "date": "01 DIC",
+            "lVal": "180",
+            "rVal": "178",
+            "asymmetry": "1.1%"
+          }
+        ],
+        "comments": "Asimetría dentro de los rangos de normalidad (<5%)."
+      },
+      "strengthPeaks": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "isometric": "450",
+            "eccentric": "510"
+          },
+          {
+            "date": "01 DIC",
+            "isometric": "435",
+            "eccentric": "495"
+          }
+        ],
+        "comments": "Pico de fuerza isométrica en niveles óptimos."
+      },
+      "custom": [
+        {
+          "name": "Grip Strength",
+          "value": "65",
+          "unit": "kg",
+          "date": "15 DIC"
+        }
+      ]
+    },
+    "extra": {
+      "aiReports": [
+        {
+          "title": "Análisis de Recuperación Semanal",
+          "date": "15 Dic 2025",
+          "type": "Weekly"
+        },
+        {
+          "title": "Predicción de Riesgo de Lesión",
+          "date": "01 Dic 2025",
+          "type": "Risk"
+        }
+      ],
+      "questionnaires": [
+        {
+          "date": "20 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "85/100",
+          "status": "Completo"
+        },
+        {
+          "date": "19 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "82/100",
+          "status": "Completo"
+        },
+        {
+          "date": "18 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "88/100",
+          "status": "Completo"
+        }
+      ]
+    },
+    "extraTests": {
+      "selected": [
+        "ANALÍTICA SANGUÍNEA"
+      ],
+      "comment": "Resultados pendientes de revisión por el especialista. El jugador presenta molestias leves en la zona."
     }
   },
   "XABIER LOPEZ": {
@@ -777,6 +2995,208 @@ export const playerMedicalData: Record<string, any> = {
       "personalHistory": [
         "Operado de apéndice"
       ]
+    },
+    "rom": {
+      "lower": {
+        "Tobillo Flexión Dorsal": {
+          "l": "42°",
+          "r": "44°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "40° | 41°"
+            }
+          ]
+        },
+        "Cadera Flexión": {
+          "l": "115°",
+          "r": "112°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "110° | 108°"
+            }
+          ]
+        },
+        "Knee Extension": {
+          "l": "0°",
+          "r": "0°",
+          "history": [
+            {
+              "date": "OCT 2025",
+              "val": "0° | -2°"
+            }
+          ]
+        }
+      },
+      "upper": {
+        "Hombro Flexión": {
+          "l": "175°",
+          "r": "178°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "170° | 172°"
+            }
+          ]
+        },
+        "Hombro Rot. Interna": {
+          "l": "65°",
+          "r": "62°",
+          "history": [
+            {
+              "date": "JUN 2025",
+              "val": "60° | 58°"
+            }
+          ]
+        }
+      }
+    },
+    "evaluation": {
+      "UPPER BODY": {
+        "score": "8.5",
+        "desc": "Sin asimetrías detectadas. Excelente estabilidad.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.2"
+          }
+        ]
+      },
+      "SPINAL COLUMN": {
+        "score": "7.8",
+        "desc": "Control motor adecuado en movimientos dinámicos.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.5"
+          }
+        ]
+      },
+      "LOWER BODY": {
+        "score": "9.0",
+        "desc": "Potencia explosiva en rango óptimo.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "8.5"
+          }
+        ]
+      },
+      "ABS / CORE": {
+        "score": "8.0",
+        "desc": "Estabilidad central sólida en anti-rotación.",
+        "history": [
+          {
+            "date": "OCT 2025",
+            "val": "7.8"
+          }
+        ]
+      }
+    },
+    "physicalTests": {
+      "jump": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "value": "42"
+          },
+          {
+            "date": "01 DIC",
+            "value": "40"
+          },
+          {
+            "date": "15 NOV",
+            "value": "43"
+          },
+          {
+            "date": "01 NOV",
+            "value": "41"
+          }
+        ],
+        "comments": "Mejora constante en la potencia reactiva."
+      },
+      "hopTest": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "lVal": "185",
+            "rVal": "182",
+            "asymmetry": "1.6%"
+          },
+          {
+            "date": "01 DIC",
+            "lVal": "180",
+            "rVal": "178",
+            "asymmetry": "1.1%"
+          }
+        ],
+        "comments": "Asimetría dentro de los rangos de normalidad (<5%)."
+      },
+      "strengthPeaks": {
+        "history": [
+          {
+            "date": "15 DIC",
+            "isometric": "450",
+            "eccentric": "510"
+          },
+          {
+            "date": "01 DIC",
+            "isometric": "435",
+            "eccentric": "495"
+          }
+        ],
+        "comments": "Pico de fuerza isométrica en niveles óptimos."
+      },
+      "custom": [
+        {
+          "name": "Grip Strength",
+          "value": "65",
+          "unit": "kg",
+          "date": "15 DIC"
+        }
+      ]
+    },
+    "extra": {
+      "aiReports": [
+        {
+          "title": "Análisis de Recuperación Semanal",
+          "date": "15 Dic 2025",
+          "type": "Weekly"
+        },
+        {
+          "title": "Predicción de Riesgo de Lesión",
+          "date": "01 Dic 2025",
+          "type": "Risk"
+        }
+      ],
+      "questionnaires": [
+        {
+          "date": "20 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "85/100",
+          "status": "Completo"
+        },
+        {
+          "date": "19 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "82/100",
+          "status": "Completo"
+        },
+        {
+          "date": "18 DIC 2025",
+          "name": "Well-being (WBQ)",
+          "score": "88/100",
+          "status": "Completo"
+        }
+      ]
+    },
+    "extraTests": {
+      "selected": [
+        "ECOGRAFÍA",
+        "RESONANCIA MAGNÉTICA (RMN)"
+      ],
+      "comment": "Resultados pendientes de revisión por el especialista. El jugador presenta molestias leves en la zona."
     }
   }
 };
