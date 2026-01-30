@@ -14,7 +14,7 @@ const ProfileSettings: React.FC = () => {
     const isFisio = userEmail?.includes('fisio') || userEmail?.includes('healthtrack1939');
     const isPrepa = userEmail?.includes('prepa') || userEmail?.includes('m.guart');
 
-    const roleLabel = isDoctor ? "JEFE MÉDICO" : isPrepa ? "PREPARADOR FÍSICO" : isFisio ? "FISIOTERAPEUTA" : "STAFF TÉCNICO";
+    const roleLabel = isDoctor ? "JEFE MÉDICO" : isPrepa ? "PREPARADOR FÍSICO" : isFisio ? "FISIOTERAPEUTA" : "JUGADOR";
 
     // Initial State loading from localStorage or defaults
     const [firstName, setFirstName] = useState(() => localStorage.getItem('userFirstName') || "Sergio");

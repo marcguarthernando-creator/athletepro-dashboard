@@ -75,6 +75,8 @@ const App: React.FC = () => {
                 <ProtectedRoute>
                   <Layout>
                     <Routes>
+                      <Route index element={<Navigate to="pre-training" replace />} />
+                      <Route path="dashboard" element={<Navigate to="pre-training" replace />} />
                       <Route path="pre-training" element={<PlayerPreTraining />} />
                       <Route path="gym" element={<PlayerGym />} />
                       <Route path="post-training" element={<PlayerPostTraining />} />

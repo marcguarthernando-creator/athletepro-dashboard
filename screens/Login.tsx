@@ -25,7 +25,7 @@ const Login: React.FC = () => {
 
             // Navigation is handled by App.tsx ProtectedRoute redirects usually, 
             // but we can hint it here locally for better UX before state updates
-            if (email.includes('jugador')) navigate('/player/wellness');
+            if (email.includes('jugador')) navigate('/player/pre-training');
             else if (email.includes('medico') || email.includes('marcguarthernando')) navigate('/medical/dashboard');
             else if (email.includes('fisio')) navigate('/fisio');
             else if (email.includes('prepa')) navigate('/prepa');
@@ -46,7 +46,7 @@ const Login: React.FC = () => {
                 debugLogin(email.trim().toLowerCase());
 
                 const cleanEmail = email.trim().toLowerCase();
-                if (cleanEmail.includes('jugador')) navigate('/player/wellness');
+                if (cleanEmail.includes('jugador')) navigate('/player/pre-training');
                 else if (cleanEmail.includes('medico') || cleanEmail.includes('marcguarthernando')) navigate('/medical/dashboard');
                 else if (cleanEmail.includes('fisio')) navigate('/fisio');
                 else if (cleanEmail.includes('prepa')) navigate('/prepa');
