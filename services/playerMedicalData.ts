@@ -16,6 +16,28 @@ export const playerMedicalData: Record<string, any> = {
         "endo": "2.4",
         "meso": "4.3",
         "ecto": "2.4"
+      },
+      "folds": {
+        "triceps": "8.5",
+        "subscapular": "10.2",
+        "biceps": "4.1",
+        "suprailiac": "12.5",
+        "abdominal": "15.3",
+        "thigh": "9.8",
+        "calf": "6.5",
+        "sum": "66.9"
+      },
+      "perimeters": {
+        "armRelaxed": "34.5",
+        "armContracted": "37.2",
+        "forearm": "30.1",
+        "thigh": "58.4",
+        "calf": "39.2"
+      },
+      "diameters": {
+        "humerus": "7.4",
+        "femur": "10.1",
+        "bistyloid": "5.9"
       }
     },
     "injuries": [
@@ -162,6 +184,29 @@ export const playerMedicalData: Record<string, any> = {
       }
     },
     "physicalTests": {
+      "ankle": {
+        "l": "10.5",
+        "r": "9.5"
+      },
+      "yBalance": {
+        "anterior": { "l": "80", "r": "76" },
+        "posteromedial": { "l": "81", "r": "81" },
+        "posterolateral": { "l": "80", "r": "80" }
+      },
+      "slSquat": {
+        "left": { "ankle": "Bien", "knee": "Precaución", "hip": "Bien" },
+        "right": { "ankle": "Bien", "knee": "Precaución", "hip": "Precaución" }
+      },
+      "hurdleStep": {
+        "left": { "stability": "Excelente", "hip": "Excelente", "pelvis": "Excelente" },
+        "right": { "stability": "Malo", "hip": "Excelente", "pelvis": "Excelente" }
+      },
+      "core": {
+        "leftSide": "95s",
+        "rightSide": "90s",
+        "ratio": "0.94",
+        "ratioEval": "Bien"
+      },
       "jump": {
         "history": [
           {

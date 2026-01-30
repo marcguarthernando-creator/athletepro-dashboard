@@ -51,12 +51,12 @@ const PlayerRPE: React.FC = () => {
                     <button
                         key={item.val}
                         onClick={() => setSelectedRPE(item.val)}
-                        className={`w-full flex items-center justify-between px-6 py-4 rounded-lg transition-all
+                        className={`w-full flex items-center justify-between px-4 py-2 rounded-lg transition-all
                             ${selectedRPE === item.val ? 'ring-4 ring-primary z-10 scale-[1.02]' : 'hover:scale-[1.01]'}
                             ${item.color} text-surface-darker font-bold
                         `}
                     >
-                        <span className="text-lg">{item.val}</span>
+                        <span className="text-base">{item.val}</span>
                         <span className="text-base uppercase tracking-wide">{item.label}</span>
                         <span className="material-symbols-outlined">{item.icon}</span>
                     </button>
@@ -67,7 +67,7 @@ const PlayerRPE: React.FC = () => {
                 <button
                     disabled={selectedRPE === null}
                     onClick={handleSubmit}
-                    className="w-full bg-primary disabled:bg-surface-border disabled:text-text-secondary hover:bg-primary-hover text-background-dark font-bold py-4 px-8 rounded-xl shadow-lg transition-all uppercase tracking-widest"
+                    className="w-full bg-primary disabled:bg-surface-border disabled:text-text-secondary hover:bg-primary-hover text-background-dark font-bold py-3 px-8 rounded-xl shadow-lg transition-all uppercase tracking-widest"
                 >
                     ENVIAR
                 </button>

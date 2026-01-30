@@ -24,34 +24,74 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
+    const STORAGE_KEY = 'healthtrack-debug-session';
+
     useEffect(() => {
         // Get initial session
         console.log('AuthContext: Fetching session...');
+
+        const restoreSession = () => {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) {
+                    const { session } = JSON.parse(stored);
+                    console.log('AuthContext: Restored debug session from storage');
+                    setSession(session);
+                    setUser(session?.user ?? null);
+                    setLoading(false);
+                    return true;
+                }
+            } catch (e) {
+                console.error('AuthContext: Failed to parse stored session', e);
+                localStorage.removeItem(STORAGE_KEY);
+            }
+            return false;
+        };
+
         supabase.auth.getSession().then(({ data: { session } }) => {
-            console.log('AuthContext: Session fetched', session);
-            setSession(session);
-            setUser(session?.user ?? null);
-            setLoading(false);
+            if (session) {
+                console.log('AuthContext: Session fetched', session);
+                setSession(session);
+                setUser(session?.user ?? null);
+                setLoading(false);
+            } else {
+                // Try to restore from local storage if Supabase has no session
+                if (!restoreSession()) {
+                    setSession(null);
+                    setUser(null);
+                    setLoading(false);
+                }
+            }
         }).catch((_err) => {
             console.error('AuthContext: Session fetch error', _err);
-            // If fetch fails, we assume no session.
-            setSession(null);
-            setUser(null);
-            setLoading(false);
+            // On error, also try to restore (e.g. offline)
+            if (!restoreSession()) {
+                setSession(null);
+                setUser(null);
+                setLoading(false);
+            }
         });
 
         // Listen for changes
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session);
-            setUser(session?.user ?? null);
-            setLoading(false);
+            if (session) {
+                setSession(session);
+                setUser(session?.user ?? null);
+                setLoading(false);
+            }
         });
 
         return () => subscription.unsubscribe();
     }, []);
 
     const signOut = async () => {
+        localStorage.removeItem(STORAGE_KEY);
+        // Clean up legacy keys if present
+        localStorage.removeItem('isAuthenticated');
+        localStorage.removeItem('userEmail');
         await supabase.auth.signOut();
+        setSession(null);
+        setUser(null);
     };
 
     const debugLogin = (email: string) => {
@@ -65,11 +105,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             role = 'medical_staff';
             firstName = 'Marc';
             lastName = 'Guart';
-        } else if (email.includes('fisio')) {
+        } else if (email.includes('fisio') || email.includes('healthtrack1939')) {
             role = 'physiotherapist';
             firstName = 'Fisio';
             lastName = 'Principal';
-        } else if (email.includes('prepa')) {
+        } else if (email.includes('prepa') || email.includes('m.guart')) {
             role = 'strength_coach';
             firstName = 'Preparador';
             lastName = 'Físico';
@@ -104,6 +144,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             user: fakeUser
         } as Session;
 
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ session: fakeSession }));
         setSession(fakeSession);
         setUser(fakeUser);
         setLoading(false);
